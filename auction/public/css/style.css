@@ -1,0 +1,19 @@
+
+.bid{
+	background: green;
+}
+.out{
+	background: red;
+}
+#upfile {
+	display: none;
+}
+.up_promise_photo {
+	text-decoration: underline;cursor: pointer
+}
+.buy_promis_active {
+	background-color: burlywood !important;
+}
+.promise_auction {
+	display: none;
+}
