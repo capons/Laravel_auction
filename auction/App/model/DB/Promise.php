@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Promise extends Model {
 
-	protected $fillable = array('title','desc','price','file_id','category_id','type','time','featured','winners','shows');
+	protected $fillable = array('title','description','price','file_id','category_id','type','time','featured','auction_end','winners','shows','location_id','winner_id');
 	public $table = 'promise';
-
+	
 	function category(){
 		$this->belongsTo('App\model\DB\Category');
 	}
@@ -19,7 +19,10 @@ class Promise extends Model {
 	function location(){
 		return $this->belongsTo('App\model\DB\Location');
 	}
-	function request(){
-		return $this->hasMany('App\model\DB\Request');
+
+	function requestPro(){
+		return $this->hasMany('App\model\DB\RequestPro');
 	}
+	
+
 }

@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/account/requeste','AccountController@requestePromise');
 
     //promise route
-    Route::post('/promise/add', 'PromiseController@add');
+    //Route::post('/promise/add', 'PromiseController@add'); старый метод сохранения Promise
     Route::post('/promise/addrequest', 'PromiseController@addRequest');
     Route::post('/promise/getdata', 'PromiseController@getData');
     Route::post('/promise/buy', 'PromiseController@buy');
@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/promise/getpromisebycategory', 'PromiseController@getPromiseByCategory');
 
     Route::get('/promise/sell', 'PromiseController@pageSell'); //sell promise
-    Route::post('/promise/sell', 'PromiseController@pageSell'); //sell promise
+    Route::post('/promise/sell', 'PromiseController@add'); //sell promise
 
     Route::get('/home','UserController@getIndex');
 

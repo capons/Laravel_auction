@@ -7,13 +7,18 @@ use App\model\DB\Category;
 use App\model\DB\File;
 use App\model\DB\Location;
 use App\model\DB\Promise;
+use App\model\DB\RequestPro;
+use App\User;
 use Illuminate\Http\Request;
 use Validator;
+use Input;
+use Session;
 
 class PromiseController extends Controller {
 
-	protected $redirectTo = '/dashboard';
-
+	//protected $redirectTo = '/dashboard';
+	protected $redirectTo = '/promise/sell';
+/*
 	public function validation(Request $request){
 		$this->validate($request,
 			[
@@ -27,40 +32,173 @@ class PromiseController extends Controller {
 				//'select_img' => 'array'
 			]);
 	}
+*/
+	public function validation(array $data){
+		$messages = [          //validation message
+			'prom_category.required' => 'Category is required',
+			'prom_location.required' => 'Location is required',
+			'prom_title.required' => 'Title is required',
+			'prom_title.max:50' => 'Title length max 50',
+			'prom_available_time.required' => 'Promise amount is required',
+			'prom_available_time.max:20' => 'Promise length-no more than 20 characters',
+			'prom_desc.required' => 'Promise description is required',
+			'prom_desc.max:150' => 'Promise description max 150 character',
+			'prom_terms.required' => 'Promise terms is required',
+			'prom_terms.max:150' => 'Promise terms max 150 character',
+			'prom_price.required' => 'Promise price is required',
+			'prom_auction_number.required' => 'Promise auction amount is required',
+			'prom_upload.required' => 'Promise image is required',
+			'prom_auction_end.required' => 'Auction expired required',
+			'prom_auction_end.numeric' => 'Insert auction active days '
+		];
+		return Validator::make($data, [   //validation registration form
+			'sell_promise_type' => 'numeric',
+			'prom_category' => 'required',
+			'prom_location' => 'required',
+			'prom_title' => 'required|string|max:50',
+			'prom_available_time' => 'required|numeric|max:20',
+			'prom_desc' => 'required|max:150',
+			'prom_terms' => 'required|max:150',
+			'prom_auction_number' => 'required|numeric',
+			'shows' => '',
+			'prom_price' => 'required|numeric',
+			'prom_upload' => 'required',
+			'prom_auction_end' => 'required|numeric',
+		],$messages);
+	}
 
 	public function getIndex(){
 
 		return view('promise.index');
 	}
 
-	public function add(Request $request){
-		$error = [];
-		$this->validation($request);
-		if(!$request->input('select_img')){
-			$v = Validator::make($request->all(), [
-				'file' => 'mimes:jpeg,bmp,png',
-			]);
-			if ($v->fails()){
-				return $v->errors();
-			}else{
-				$file = \Request::file('file');
-				$path = \Config::get('app.setting.upload').'\\'.\Auth::user()->id;
-				$name = time().'.'.$file->getClientOriginalExtension();
-				if( $file->move( $path, $name) ){
-					$file = File::create(['name'=>$name,'path'=>$path,'users_id'=>\Auth::user()->id,'url'=> \Config::get('app.setting.url_upload').'/'.\Auth::user()->id]);
+	public function add(Request $request){ //add promise for sale and auction
+		$error = array();
+		if(Input::get('sell_promise_type') == 0) { //if check promise to sell
+			if (!$request->input('select_image_from_our_database')) { // input to upload file from our database
+				$validator = $this->validation($request->all());
+				if ($validator->fails()) {
+					return redirect('promise/sell')
+						->withInput()
+						->withErrors($validator);
+				} else {
+					$v = Validator::make($request->all(), [
+						'file' => 'mimes:jpeg,bmp,png',
+					]);
+					if ($v->fails()) {
+						return $v->errors();
+					} else {
+						$file = \Request::file('prom_upload');
+						$path = \Config::get('app.setting.upload') . '\\' . \Auth::user()->id;
+						$name = time() . '.' . $file->getClientOriginalExtension();
+						if ($file->move($path, $name)) {
+							$file = File::create(['name' => $name, 'path' => $path, 'users_id' => \Auth::user()->id, 'url' => \Config::get('app.setting.url_upload') . '/' . \Auth::user()->id]);
+						}
+					}
 				}
+			} else {
+				$file = File::find($request->input('select_image_from_our_database')); //input containes id of our image in database
 			}
-		}else{
-			$file = File::find($request->input('select_img'));
+				$promise_value = Input::get('prom_available_time');
+
+				$data = array( 
+					'title' => Input::get('prom_title'),
+					'description' => Input::get('prom_desc'),
+					'price' => Input::get('prom_price'),
+					'terms' => Input::get('prom_terms'),
+					'type' => Input::get('sell_promise_type'),       //if type 0 => (for sale) if type 1 => (auction)
+					'winners' => Input::get('prom_auction_number'),
+					'file_id' => $file->id,                         //image upload id
+					'category_id' => Input::get('prom_category'),
+					'location_id' => Input::get('prom_location'),
+				);
+				$promise = Promise::create($data);
+				if (!$promise) {
+					$error[] = \Lang::get('message.error.save_db');
+				} else {
+					$request_data = array(
+						'promise_id' => $promise->id, //last save promise id
+						'amount' => $promise_value,
+						'users_id' => \Auth::user()->id,
+					);
+
+					$p_request = RequestPro::create($request_data);
+					if (!$p_request) {
+						$error[] = \Lang::get('message.error.save_db');
+					}
+
+					Session::flash('user-info', 'Promise added successfully'); //send message to user via flash data
+					return redirect($this->redirectTo);
+
+				}
+		} elseif(Input::get('sell_promise_type') == 1){ //if check promise auction
+			$error = array();
+			if (!$request->input('select_image_from_our_database')) { // input to upload file from our database
+				$validator = $this->validation($request->all());
+				if ($validator->fails()) {
+					/*
+                    $this->throwValidationException(
+                        $request, $validator
+                    );
+                    */
+					return redirect('promise/sell')
+						->withInput()
+						->withErrors($validator);
+				} else {
+					$v = Validator::make($request->all(), [
+						'file' => 'mimes:jpeg,bmp,png',
+					]);
+					if ($v->fails()) {
+						return $v->errors();
+					} else {
+						$file = \Request::file('prom_upload');
+						$path = \Config::get('app.setting.upload') . '\\' . \Auth::user()->id;
+						$name = time() . '.' . $file->getClientOriginalExtension();
+						if ($file->move($path, $name)) {
+							$file = File::create(['name' => $name, 'path' => $path, 'users_id' => \Auth::user()->id, 'url' => \Config::get('app.setting.url_upload') . '/' . \Auth::user()->id]);
+						}
+					}
+				}
+			} else {
+				$file = File::find($request->input('select_image_from_our_database')); //input containes id of our image in database
+			}
+			$promise_value = Input::get('prom_available_time'); //number of Promises for sale
+			$auction_days = Input::get('prom_auction_end'); //days auction end
+			$to_change = '+ '.$auction_days.' day';
+			$date = date("Y-m-d H:i:s");
+			$date = strtotime($date);
+			$date = strtotime($to_change, $date); //date in future when auction is expired
+			$data = array(
+				'title' => Input::get('prom_title'),
+				'description' => Input::get('prom_desc'),
+				'price' => Input::get('prom_price'),
+				'terms' => Input::get('prom_terms'),
+				'type' => Input::get('sell_promise_type'),       //if type 0 => (for sale) if type 1 => (auction)
+				'winners' => Input::get('prom_auction_number'),
+				'file_id' => $file->id,                         //image upload id
+				'auction_end' => date("Y-m-d H:i:s",$date),     //date auction expire
+				'category_id' => Input::get('prom_category'),
+				'location_id' => Input::get('prom_location'),
+			);
+			$promise = Promise::create($data);
+			if (!$promise) {
+				$error[] = \Lang::get('message.error.save_db');
+			} else {
+				$request_data = array(
+					'promise_id' => $promise->id, //last save promise id
+					'amount' => $promise_value,
+					'users_id' => \Auth::user()->id,
+				);
+				$p_request = RequestPro::create($request_data);
+				if (!$p_request) {
+					$error[] = \Lang::get('message.error.save_db');
+				}
+				Session::flash('user-info', 'Promise added successfully'); //send message to user via flash data
+				return redirect($this->redirectTo);
+			}
 		}
-		$data = $request->all();
-		$data['file_id'] = $file->id;
-		$promise = Promise::create($data);
-		if(!$promise){
-			$error = \Lang::get('message.error.save_db');
-		}
-		return ['error' => $error];
 	}
+
 
 	public function getData(Request $request){
 		$value = $request->input('value');

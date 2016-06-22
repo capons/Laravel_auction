@@ -5,16 +5,17 @@ namespace App\model\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Request extends Model {
+class RequestPro extends Model {
 
-	public $timestamps = false;
+	//public $timestamps = false;
 	public $table = 'request';
-	protected $fillable = array('promise_id','users_id','amount');
-
+	protected $fillable = array('promise_id','amount','users_id');
+	
 	function category(){
 		$this->belongsTo('App\model\DB\Promise');
 	}
 	function user(){
 		$this->belongsTo('App\User');
 	}
+	
 }
