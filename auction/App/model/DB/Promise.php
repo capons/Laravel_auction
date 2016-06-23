@@ -9,7 +9,10 @@ class Promise extends Model {
 
 	protected $fillable = array('title','description','price','file_id','category_id','type','time','featured','auction_end','winners','shows','location_id','winner_id');
 	public $table = 'promise';
-	
+	/*
+	function users(){
+		$this->belongsTo('App\User');
+	}
 	function category(){
 		$this->belongsTo('App\model\DB\Category');
 	}
@@ -19,9 +22,10 @@ class Promise extends Model {
 	function location(){
 		return $this->belongsTo('App\model\DB\Location');
 	}
-
-	function requestPro(){
-		return $this->hasMany('App\model\DB\RequestPro');
+	*/
+	function request(){
+		//return $this->hasMany('App\model\DB\RequestPro','promise_id','id');
+		return $this->hasManyThrough('App\User','App\model\DB\Requeste','promise_id','id');
 	}
 	
 

@@ -6,8 +6,21 @@
 @stop
 
 @section('content')
-	<script src="{!! asset('/AdminLTE/plugins/datatables/jquery.dataTables.min.js') !!}" type="text/javascript"></script>
-	<link href="{!! asset('/AdminLTE/plugins/datatables/jquery.dataTables.min.css') !!}" rel="stylesheet" type="text/css">
+		<!-- Display Validation Errors -->
+	@include('common.errors')
+		<!--./Error -->
+	<!--Display User info -->
+	<!--User information -->
+	@if(Session::has('user-info'))
+	<div class="alert-box success">
+		<h2>{{ Session::get('user-info') }}</h2>
+	</div>
+	@endif
+	<!-- ./User info-->
+	<!--Promise GridView -->
+	{!! $filter !!}
+	{!! $grid !!}
 
-	<p>Promise page</p>
+
+	<!-- ./Promise GridView -->
 @stop

@@ -17,7 +17,7 @@ class User extends Model implements AuthenticatableContract,
 	CanResetPasswordContract
 {
 	use Authenticatable, Authorizable, CanResetPassword;
-
+	
 	function category()
 	{
 		return $this->belongsTo('App\model\DB\Category');

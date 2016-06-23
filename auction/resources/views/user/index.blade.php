@@ -23,6 +23,10 @@
 	?>
 	<a href=""></a><br>
 	<a href=""></a><br>
+
+
+	<!-- Display Validation Errors -->
+	@include('common.errors')
 	<!--User information -->
 	@if(Session::has('user-info'))
 		<div class="alert-box success">

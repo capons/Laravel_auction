@@ -41,7 +41,7 @@ class Admin {
 				return redirect()->guest('auth/login');
 			}
 		}
-		if($this->auth->user()->access != 1){
+		if($this->auth->user()->access != 2){ //admin access
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
 			} else {

@@ -13,7 +13,7 @@
 				<h2>SELL A PROMISE</h2>
 			</div>
 
-			<form enctype="multipart/form-data" class="form-horizontal" action="{{action('PromiseController@add')}}" method="post">
+			<form id="promise_form" enctype="multipart/form-data" class="form-horizontal" action="{{action('PromiseController@add')}}" method="post">
 				<input type="hidden" name="sell_promise_type" value="0"> <!--input to understand -> promise for sale or auction -->
 				<div style="margin-bottom: 10px" class="row"> <!--Select sell type -->
 					<div class="col-xs-12">
@@ -132,7 +132,7 @@
 				<div class="form-group">
 					<label style="text-align: left" class="col-sm-3 control-label">SET YOUR PRICE</label>
 					<div class="col-sm-4">
-						<input class="form-control" type="number" value="50" name="prom_price" placeholder="$" required>
+						<input class="form-control" type="text" value="50" name="prom_price" placeholder="$" required>
 					</div>
 				</div>
 

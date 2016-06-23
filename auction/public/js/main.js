@@ -50,6 +50,7 @@ var admin_users = (function () {
 var promise_sell = (function () {
     var doConstruct = function () {
         main.add_init_callback(this.upload_file_promise);
+        main.add_init_callback(this.form_validate);
         main.add_init_callback(this.sell_promise_form_type);
     };
     doConstruct.prototype = {
@@ -69,6 +70,24 @@ var promise_sell = (function () {
              }
              });
              */
+        },
+        form_validate: function () {
+            $("input[name='prom_price']").keyup(function(){    //validate input price
+                var goods_price = $("input[name='prom_price']").val(); //variable to check
+                goods_price = goods_price.replace(',', '.');        //replace symbol if need
+                goods_price = goods_price.replace(/[^0-9\.]/g,''); //remove all string from input
+                if(goods_price.indexOf('..') !== -1){
+                    $("input[name='prom_price']").val((goods_price.split(".")[0]));
+                } else if (goods_price.indexOf(',,') !== -1){
+                    console.log('Запятая');
+                    $("input[name='prom_price']").val((goods_price.split(",")[0]));
+                } else if (goods_price.indexOf('.,') !== -1){
+                    $("input[name='prom_price']").val((goods_price.split(".")[0]));
+                } else {
+                    $("input[name='prom_price']").val(goods_price);
+                }
+
+            });
         },
         sell_promise_form_type: function (){
             $('#btn_buy').click( function () {  //click if promise for sale

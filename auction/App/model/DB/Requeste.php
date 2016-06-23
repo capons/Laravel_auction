@@ -5,7 +5,7 @@ namespace App\model\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RequestPro extends Model {
+class Requeste extends Model {
 
 	//public $timestamps = false;
 	public $table = 'request';
@@ -17,5 +17,11 @@ class RequestPro extends Model {
 	function user(){
 		$this->belongsTo('App\User');
 	}
-	
+
+	/*
+	function promise(){
+		$this->belongsTo('App\Promise');
+	}
+	*/
+
 }

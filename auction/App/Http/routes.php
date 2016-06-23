@@ -66,13 +66,13 @@ Route::group(['middleware' => ['auth']], function(){
 
 });
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['admin']], function() { //group for admin
     //Route::get('/admin', 'AdminController@users'); //old route
     //admin defoult route
-    Route::get('/admin', 'AdminController@getIndex'); //a add
+    Route::get('/admin', 'AdminController@getIndex'); //i add
     /*Users route*/
-    Route::get('/admin/users','AdminUsersController@users'); //i add
-    Route::post('/admin/users','AdminUsersController@modify'); //i add
+    Route::get('/admin/users','AdminUsersController@users');   //display default data  =>i add
+    Route::post('/admin/users','AdminUsersController@modify'); //display modify data  =>i add
     Route::get('/admin/users/new','AdminUsersController@newUser');
     /* ./Users route*/
     /* Category route*/
@@ -83,8 +83,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/admin/location','AdminLocationController@getIndex');
     Route::post('/admin/location','AdminLocationController@modify');
     /* ./Location*/
-    Route::get('/admin/pagepromise', 'AdminPromiseController@pagePromise');
+    /*Primese*/
+    Route::get('/admin/promise', 'AdminPromiseController@pagePromise');
 
+    /* ./Promise*/
    // Route::get('/admin/users', 'AdminController@users'); //old route
    // Route::get('/admin/promise', 'AdminController@promise'); old route
 });

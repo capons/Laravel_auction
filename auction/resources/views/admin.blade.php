@@ -16,21 +16,13 @@
 	<script type="text/javascript">
 		$.ajaxSetup({
 			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
+			'X-CSRFTOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
 		});
 	</script>
 
-	<!--DataTable cdn -->
-	<!--
-	<script src="{!! asset('/AdminLTE/plugins/datatables/jquery.dataTables.min.js') !!}" type="text/javascript"></script>
-	<link href="{!! asset('/AdminLTE/plugins/datatables/jquery.dataTables.min.css') !!}" rel="stylesheet" type="text/css">
-	<script src="https://cdn.datatables.net/buttons/1.2.0/js/dataTables.buttons.min.js" type="text/javascript"></script>
-	<script src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js" type="text/javascript"></script>
-	-->
-
 </head>
-<body class="skin-blue sidebar-mini">
+<body  class="skin-blue sidebar-mini">
 <header class="main-header">
 	<a href="/" class="logo">
 		<!-- LOGO -->
@@ -204,7 +196,7 @@
 			<li {{ (Request::is('admin/category') ? 'class=active' : '') }}><a href="{!! url('/admin/category') !!}"><i class="fa fa-link"></i> <span>Category</span></a></li>
 
 
-			<li {{ (Request::is('admin/pagepromise') ? 'class=active' : '') }}><a href="{!! url('/admin/pagepromise') !!}"><i class="fa fa-link"></i> <span>Promise</span></a></li>
+			<li {{ (Request::is('admin/promise') ? 'class=active' : '') }}><a href="{!! url('/admin/promise') !!}"><i class="fa fa-link"></i> <span>Promise</span></a></li>
 			<li class="treeview">
 				<a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">

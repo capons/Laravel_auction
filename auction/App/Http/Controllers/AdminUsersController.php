@@ -32,9 +32,9 @@ class AdminUsersController extends Controller
             //costumize filter for gridview
             $filter = \DataFilter::source(new User);
             //simple like
-            $filter->add('f_name','Name', 'text');
+            $filter->add('f_name','Name', 'text'); //one input search
             //simple where with exact match
-            $filter->add('email', 'Email', 'text');//->clause('where')->operator('=');
+            $filter->add('email', 'Email', 'text'); //two input search //->clause('where')->operator('=');
             //custom query scope, you can define the query logic in your model
             // $filter->add('search','Search text', 'text')->scope('myscope');
             //cool deep "whereHas" (you must use DeepHasScope trait bundled on your model)

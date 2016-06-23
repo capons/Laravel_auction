@@ -7,7 +7,7 @@ use App\model\DB\Category;
 use App\model\DB\File;
 use App\model\DB\Location;
 use App\model\DB\Promise;
-use App\model\DB\RequestPro;
+use App\model\DB\Requeste;
 use App\User;
 use Illuminate\Http\Request;
 use Validator;
@@ -104,7 +104,7 @@ class PromiseController extends Controller {
 				$data = array( 
 					'title' => Input::get('prom_title'),
 					'description' => Input::get('prom_desc'),
-					'price' => Input::get('prom_price'),
+					'price' => round((float)Input::get('prom_price'), 2), //round for 2 decimel
 					'terms' => Input::get('prom_terms'),
 					'type' => Input::get('sell_promise_type'),       //if type 0 => (for sale) if type 1 => (auction)
 					'winners' => Input::get('prom_auction_number'),
@@ -122,14 +122,13 @@ class PromiseController extends Controller {
 						'users_id' => \Auth::user()->id,
 					);
 
-					$p_request = RequestPro::create($request_data);
+					$p_request = Requeste::create($request_data);
 					if (!$p_request) {
 						$error[] = \Lang::get('message.error.save_db');
 					}
-
 					Session::flash('user-info', 'Promise added successfully'); //send message to user via flash data
 					return redirect($this->redirectTo);
-
+					die();
 				}
 		} elseif(Input::get('sell_promise_type') == 1){ //if check promise auction
 			$error = array();
@@ -189,7 +188,7 @@ class PromiseController extends Controller {
 					'amount' => $promise_value,
 					'users_id' => \Auth::user()->id,
 				);
-				$p_request = RequestPro::create($request_data);
+				$p_request = Requeste::create($request_data);
 				if (!$p_request) {
 					$error[] = \Lang::get('message.error.save_db');
 				}
