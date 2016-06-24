@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Input;
 use Session;
+use DB;
 
 class PromiseController extends Controller {
 
@@ -67,9 +68,17 @@ class PromiseController extends Controller {
 		],$messages);
 	}
 
+	/*
 	public function getIndex(){
 
 		return view('promise.index');
+	}
+	*/
+
+	public function pageSell(){ //sell promise view
+		$category = Category::all();
+		$location = Location::all();
+		return view('promise.sell',['category' => $category,'location' => $location]);
 	}
 
 	public function add(Request $request){ //add promise for sale and auction
@@ -90,6 +99,7 @@ class PromiseController extends Controller {
 					} else {
 						$file = \Request::file('prom_upload');
 						$path = \Config::get('app.setting.upload') . '\\' . \Auth::user()->id;
+						//$path = asset('public/upload/"'.\Auth::user()->id.'"/');
 						$name = time() . '.' . $file->getClientOriginalExtension();
 						if ($file->move($path, $name)) {
 							$file = File::create(['name' => $name, 'path' => $path, 'users_id' => \Auth::user()->id, 'url' => \Config::get('app.setting.url_upload') . '/' . \Auth::user()->id]);
@@ -112,6 +122,8 @@ class PromiseController extends Controller {
 					'category_id' => Input::get('prom_category'),
 					'location_id' => Input::get('prom_location'),
 				);
+			//echo Input::get('prom_terms');
+			//die();
 				$promise = Promise::create($data);
 				if (!$promise) {
 					$error[] = \Lang::get('message.error.save_db');
@@ -198,7 +210,7 @@ class PromiseController extends Controller {
 		}
 	}
 
-
+	/* query to display category promise
 	public function getData(Request $request){
 		$value = $request->input('value');
 		if($request->input('type') == 1){
@@ -210,7 +222,8 @@ class PromiseController extends Controller {
 			return ['data' => $req];
 		}
 	}
-
+	*/
+	/*
 	public function addRequest(Request $request){
 		$error = '';
 		$this->validation($request);
@@ -221,8 +234,45 @@ class PromiseController extends Controller {
 		}
 		return ['error' => $error];
 	}
-	//покупка promise
+	*/
+	//promise buy view
+	public function promiseBuy(){
+
+		$category = Category::all();
+		/*
+		$promise = DB::table('promise')
+			->join('category','promise.category_id', '=', 'category.id')
+			->join('file','promise.file_id', '=', 'file.id')
+			->join('request', 'promise.id', '=', 'request.promise_id')
+			->join('users', 'users.id', '=', 'request.users_id')
+			->select('promise.id','promise.title','promise.description','promise.price','promise.type','promise.auction_end','promise.active','category.name as category_name','file.path as file_path','file.url','file.name as file_name','request.amount', 'users.f_name')
+    		->get();
+		*/
+
+		$promise = \DataSet::source(
+			DB::table('promise')
+			->join('category','promise.category_id', '=', 'category.id')
+			->join('file','promise.file_id', '=', 'file.id')
+			->join('request', 'promise.id', '=', 'request.promise_id')
+			->join('users', 'users.id', '=', 'request.users_id')
+			->select('promise.id','promise.title','promise.description','promise.price','promise.type','promise.auction_end','promise.active','category.name as category_name','file.path as file_path','file.url','file.name as file_name','request.amount', 'users.f_name')
+			->where('promise.active','=',1)
+		);
+		//$promise->addOrderBy(['title','id']);
+		$promise->paginate(2);
+		//$promise->build();
+		$promise->build();
+
+
+
+		return view('promise.buy',['category' => $category],compact('promise'));
+
+	}
+	//Promise buy
 	public function buy(Request $request){
+		echo 'buy promise';
+
+		/*
 		$msg = ['error' => ''];
 		//получение заявки
 		$id = \Request::input('id');
@@ -262,6 +312,11 @@ class PromiseController extends Controller {
 			$msg['price'] = $amount;
 		}
 		return $msg;
+		*/
+	}
+	public function buyAuction(){
+		echo 'action';
+		
 	}
 
 	public function check()
@@ -292,16 +347,7 @@ class PromiseController extends Controller {
 		return $promise->toArray();
 	}
 
-	public function pageSell(){ //sell promise
-		
-		$category = Category::all();
-		$location = Location::all();
-		
-		
-		
-		
-		return view('promise.sell',['category' => $category,'location' => $location]);
-	}
+
 
 	public function pageRequest(){
 		$category = Category::all();

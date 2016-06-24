@@ -35,7 +35,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost/bogdan/LARAVEL-PROJECT/laravel/auction',
+    'url' => 'http://localhost/bogdan/LARAVEL-PROJECT/auction',
 
     /*
     |--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Kiev', //UTC
 
     /*
     |--------------------------------------------------------------------------

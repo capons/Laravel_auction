@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Promise extends Model {
 
-	protected $fillable = array('title','description','price','file_id','category_id','type','time','featured','auction_end','winners','shows','location_id','winner_id');
+	protected $fillable = array('title','description','price','terms','file_id','category_id','type','time','featured','auction_end','winners','shows','location_id','winner_id');
 	public $table = 'promise';
 	/*
 	function users(){
@@ -23,10 +23,12 @@ class Promise extends Model {
 		return $this->belongsTo('App\model\DB\Location');
 	}
 	*/
+	/*
 	function request(){
 		//return $this->hasMany('App\model\DB\RequestPro','promise_id','id');
 		return $this->hasManyThrough('App\User','App\model\DB\Requeste','promise_id','id');
 	}
+	*/
 	
 
 }
