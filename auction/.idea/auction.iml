@@ -145,10 +145,6 @@
           <root url="file://$MODULE_DIR$/vendor/mockery/mockery" />
           <root url="file://$MODULE_DIR$/vendor/monolog/monolog" />
           <root url="file://$MODULE_DIR$/vendor/mtdowling/cron-expression" />
-          <root url="file://$MODULE_DIR$/vendor/nayjest/builder" />
-          <root url="file://$MODULE_DIR$/vendor/nayjest/grids" />
-          <root url="file://$MODULE_DIR$/vendor/nayjest/manipulator" />
-          <root url="file://$MODULE_DIR$/vendor/nayjest/str-case-converter" />
           <root url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
           <root url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
@@ -219,10 +215,6 @@
           <root url="file://$MODULE_DIR$/vendor/mockery/mockery" />
           <root url="file://$MODULE_DIR$/vendor/monolog/monolog" />
           <root url="file://$MODULE_DIR$/vendor/mtdowling/cron-expression" />
-          <root url="file://$MODULE_DIR$/vendor/nayjest/builder" />
-          <root url="file://$MODULE_DIR$/vendor/nayjest/grids" />
-          <root url="file://$MODULE_DIR$/vendor/nayjest/manipulator" />
-          <root url="file://$MODULE_DIR$/vendor/nayjest/str-case-converter" />
           <root url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
           <root url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />

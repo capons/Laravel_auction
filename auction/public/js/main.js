@@ -20,7 +20,7 @@ $(document).ready(function () {
         func();
     });
 });
-var admin_users = (function () {
+var users_registr = (function () {
     var doConstruct = function () {
         main.add_init_callback(this.registration_checkbox);
     };
@@ -41,6 +41,22 @@ var admin_users = (function () {
                     $box.prop("checked", false);
                 }
             });
+        },
+    };
+    return new doConstruct;
+})();
+
+/*admin_panel*/
+var admin_panel = (function () {
+    var doConstruct = function () {
+        main.add_init_callback(this.display_admin_panel);
+    };
+    doConstruct.prototype = {
+        display_admin_panel: function () {
+           // $("#admin-p-display").click(function(){
+           //     console.log('test');
+           //     $('#p-display').show();
+          //  })
         },
     };
     return new doConstruct;

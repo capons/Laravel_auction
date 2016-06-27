@@ -7,6 +7,7 @@ use app\model\DB;
 use App\model\DB\File;
 use App\User;
 use Session; //load session class
+use App\Library\UpBid;
 
 class UserController extends Controller {
 
@@ -25,8 +26,18 @@ class UserController extends Controller {
 	public function getIndex(){  //main view
 
 		//var_dump(User::find(4)->toArray());
-
-		return view('user.index'); 
+		/*
+		$test = [
+			'user 1' => '20',
+			'user 2' => '15.5',
+			'user 3' => '15'
+		];
+		$tt = new UpBid();
+		echo '<pre>';
+		print_r($tt->test($test));
+		echo '</pre>';
+		*/
+		return view('user.index');
 	}
 
 	public function getRegister(){

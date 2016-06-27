@@ -35,7 +35,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost/bogdan/LARAVEL-PROJECT/auction',
+    'url' => 'http://localhost/bogdan/Laravel_auction/auction',
 
     /*
     |--------------------------------------------------------------------------

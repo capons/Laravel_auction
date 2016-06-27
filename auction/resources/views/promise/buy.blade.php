@@ -6,6 +6,14 @@
 @stop
 
 @section('content')
+	<!-- user info -->
+	<div class="col-xs-12">
+		@if(Session::has('user-info'))
+			<div class="alert-box success">
+				<h2>{{ Session::get('user-info') }}</h2>
+			</div>
+		@endif
+	</div>
 	<div style="height: 500px" class="row">
 		<div class="col-xs-3">
 			<ul style="width: 100%" class="footer-menu">

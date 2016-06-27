@@ -8,6 +8,7 @@ use App\model\DB\File;
 use App\model\DB\Location;
 use App\model\DB\Promise;
 use App\model\DB\Requeste;
+use App\model\DB\Winner;
 use App\User;
 use Illuminate\Http\Request;
 use Validator;
@@ -137,10 +138,21 @@ class PromiseController extends Controller {
 					$p_request = Requeste::create($request_data);
 					if (!$p_request) {
 						$error[] = \Lang::get('message.error.save_db');
+					} else {
+						/*
+						$winners_data = array (
+							'promise_id' => $promise->id
+						);
+						$w_request = Winner::create($winners_data);
+						if (!$w_request) {
+							$error[] = \Lang::get('message.error.save_db');
+						}
+						*/
+						Session::flash('user-info', 'Promise added successfully'); //send message to user via flash data
+						return redirect($this->redirectTo);
+						die();
 					}
-					Session::flash('user-info', 'Promise added successfully'); //send message to user via flash data
-					return redirect($this->redirectTo);
-					die();
+
 				}
 		} elseif(Input::get('sell_promise_type') == 1){ //if check promise auction
 			$error = array();
@@ -179,6 +191,10 @@ class PromiseController extends Controller {
 			$date = date("Y-m-d H:i:s");
 			$date = strtotime($date);
 			$date = strtotime($to_change, $date); //date in future when auction is expired
+			$number_of_winners = Input::get('prom_auction_number');
+			$winners_array = array();
+
+
 			$data = array(
 				'title' => Input::get('prom_title'),
 				'description' => Input::get('prom_desc'),
@@ -203,9 +219,22 @@ class PromiseController extends Controller {
 				$p_request = Requeste::create($request_data);
 				if (!$p_request) {
 					$error[] = \Lang::get('message.error.save_db');
+				} else {
+					/*
+					$str = '';
+					for($i = 0; $i < $number_of_winners; $i++) {
+						$str .= '('.$promise->id.')'.',';
+					}
+					$str = substr($str, 0, -1); // remove last character from string
+					$w_request = DB::insert('insert into winners (promise_id) values '.$str.' ');
+					if (!$w_request) {
+						$error[] = \Lang::get('message.error.save_db');
+					}
+					*/
+					Session::flash('user-info', 'Promise added successfully'); //send message to user via flash data
+					return redirect($this->redirectTo);
 				}
-				Session::flash('user-info', 'Promise added successfully'); //send message to user via flash data
-				return redirect($this->redirectTo);
+
 			}
 		}
 	}
@@ -257,6 +286,7 @@ class PromiseController extends Controller {
 			->join('users', 'users.id', '=', 'request.users_id')
 			->select('promise.id','promise.title','promise.description','promise.price','promise.type','promise.auction_end','promise.active','category.name as category_name','file.path as file_path','file.url','file.name as file_name','request.amount', 'users.f_name')
 			->where('promise.active','=',1)
+			->where('request.amount','<>',0) //not equal 0
 		);
 		//$promise->addOrderBy(['title','id']);
 		$promise->paginate(2);
@@ -270,52 +300,63 @@ class PromiseController extends Controller {
 	}
 	//Promise buy
 	public function buy(Request $request){
-		echo 'buy promise';
-
-		/*
-		$msg = ['error' => ''];
-		//получение заявки
-		$id = \Request::input('id');
-		$amount = \Request::input('amount');
-		$promise = Promise::find($id);
-		//проверка выставляемой цены
-		$min = $promise['price'];
-		if(!$promise->request->isEmpty()){
-			$min += 1;
-		}
-		$v = Validator::make($request->all(), [
-			'amount' => 'required|numeric|min:'.$min,
+		Validator::make($request->all(), [
+			'promise_id' => 'numeric',
+			'promise_amount' => 'numeric',
+			'promise_price' => 'numeric'
 		]);
-		if ($v->fails()) {
-			$this->throwValidationException($request, $v);
-		}
-		//проверка не закончился ли аукцион
-		//if($promise['type'] == 1) { //auction
-			if($promise['time'] < date('Y-m-d H:i:s')){
-				$msg['error'] = \Lang::get('promise.deadline');
-				return $msg;
+		$promise_id = $request->input('promise_id');
+		$amount = $request->input('promise_amount');
+		$price = $request->input('promise_price');
+		$promise = DB::table('promise')
+			->join('request', 'promise.id', '=', 'request.promise_id')
+			->select('promise.id','promise.price','promise.type','promise.active','request.amount')
+			->where('promise.id','=',$request->input('promise_id'))
+			->where('promise.active','=',1)
+			->where('promise.type','=',0)
+			->first();
+		if($promise->amount >= $amount){
+			//change amount of promise and create winner data
+			DB::beginTransaction();
+			try {
+				DB::table('request')   //change amount
+					->where('promise_id', $promise_id)
+					->update(['amount' => $promise->amount - $amount]);
+			} catch (ValidationException $e) {
+				DB::rollback();
+				return Redirect::to('promise/buy')
+					->withErrors( $e->getErrors() )
+					->withInput();
+			} catch (\Exception $e) {
+				DB::rollback();
+				throw $e;
 			}
-		//}
+			try {
+				$winner = DB::table('winners')->insertGetId( //save buyer information
+					['promise_id' => $promise_id, 'bid' => $price, 'winner_id' => \Auth::user()->id]
+				);
+			} catch (ValidationException $e) {
+				DB::rollback();
+				return Redirect::to('promise/buy')
+					->withErrors( $e->getErrors() )
+					->withInput();
+			} catch (\Exception $e) {
+				DB::rollback();
+				throw $e;
+			}
+			DB::commit();
 
-		$req = [
-			'promise_id' => $id,
-			'amount' => $amount,
-			'users_id' => \Auth::user()->id
-		];
-		//запись запроса на заяку
-		\App\model\DB\Request::create($req);
-		//проверка какой вид заявки
-		if($promise['type'] == 0){ //buy
-			$promise->active = 2;
-			$promise->save();
-		}else if($promise['type'] == 1){ //auction
-			$msg['price'] = $amount;
+			Session::flash('user-info', 'Thank you for your purchase, your order number'.' '.$winner); //send message to user via flash data
+			return redirect('promise/buy');
+		} else {
+			Session::flash('user-info', 'Not enough product'); //send message to user via flash data
+			return redirect('promise/buy');
 		}
-		return $msg;
-		*/
 	}
 	public function buyAuction(){
 		echo 'action';
+
+
 		
 	}
 

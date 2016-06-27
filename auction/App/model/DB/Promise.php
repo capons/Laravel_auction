@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Promise extends Model {
 
-	protected $fillable = array('title','description','price','terms','file_id','category_id','type','time','featured','auction_end','winners','shows','location_id','winner_id');
+	protected $fillable = array('title','description','price','terms','file_id','category_id','type','featured','auction_end','winners','shows','location_id');
 	public $table = 'promise';
 	/*
 	function users(){

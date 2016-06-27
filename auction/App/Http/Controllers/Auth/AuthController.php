@@ -90,14 +90,7 @@ class AuthController extends Controller
 		}
 
 		//$credentials = $this->getCredentials($request);
-		$userdata_email = array( //login via email
-			'email'     => Input::get('r_email'),  //email -> database row name
-			'password'  => Input::get('r_password')//password -> database row name
-		);
-		$userdata_name = array( //login via name
-			'f_name'    => Input::get('r_email'),
-			'password'  => Input::get('r_password')
-		);
+
 		$messages = [ //validation message
 			'r_email.required' => 'Name is required',
 			'r_password.required' => 'Password is required'
@@ -113,6 +106,14 @@ class AuthController extends Controller
 				->withErrors($validator); //set validation error name to display in error layout  views/common/errors.blade.php
 		} else {
 
+			$userdata_email = array( //login via email
+				'email'     => Input::get('r_email'),  //email -> database row name
+				'password'  => Input::get('r_password')//password -> database row name
+			);
+			$userdata_name = array( //login via name
+				'f_name'    => Input::get('r_email'),
+				'password'  => Input::get('r_password')
+			);
 			if (Auth::attempt(/*$credentials*/$userdata_email/* + ['active' => 1]*/, $request->has('remember'))) { //avtive need to be 1 to check if user active account
 				if(Auth::attempt($userdata_email + ['active' => 1])) { //check if user active account
 					Session::flash('user-info', 'You have successfully sign in'); //send message to user via flash data

@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Регистрация')
+@section('title', 'Registration')
 
 @section('sidebar')
 	@

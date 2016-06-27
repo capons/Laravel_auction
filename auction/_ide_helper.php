@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.1.37 (LTS) on 2016-06-07.
+ * Generated for Laravel 5.1.40 (LTS) on 2016-06-24.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -2550,47 +2550,6 @@ namespace {
     }
 
 
-    class Crypt extends \Illuminate\Support\Facades\Crypt{
-        
-        /**
-         * Determine if the given key and cipher combination is valid.
-         *
-         * @param string $key
-         * @param string $cipher
-         * @return bool 
-         * @static 
-         */
-        public static function supported($key, $cipher){
-            return \Illuminate\Encryption\Encrypter::supported($key, $cipher);
-        }
-        
-        /**
-         * Encrypt the given value.
-         *
-         * @param string $value
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\EncryptException
-         * @static 
-         */
-        public static function encrypt($value){
-            return \Illuminate\Encryption\Encrypter::encrypt($value);
-        }
-        
-        /**
-         * Decrypt the given value.
-         *
-         * @param string $payload
-         * @return string 
-         * @throws \Illuminate\Contracts\Encryption\DecryptException
-         * @static 
-         */
-        public static function decrypt($payload){
-            return \Illuminate\Encryption\Encrypter::decrypt($payload);
-        }
-        
-    }
-
-
     class DB extends \Illuminate\Support\Facades\DB{
         
         /**
@@ -2678,6 +2637,686 @@ namespace {
          */
         public static function getConnections(){
             return \Illuminate\Database\DatabaseManager::getConnections();
+        }
+        
+        /**
+         * Get a schema builder instance for the connection.
+         *
+         * @return \Illuminate\Database\Schema\MySqlBuilder 
+         * @static 
+         */
+        public static function getSchemaBuilder(){
+            return \Illuminate\Database\MySqlConnection::getSchemaBuilder();
+        }
+        
+        /**
+         * Set the query grammar to the default implementation.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function useDefaultQueryGrammar(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::useDefaultQueryGrammar();
+        }
+        
+        /**
+         * Set the schema grammar to the default implementation.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function useDefaultSchemaGrammar(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::useDefaultSchemaGrammar();
+        }
+        
+        /**
+         * Set the query post processor to the default implementation.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function useDefaultPostProcessor(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::useDefaultPostProcessor();
+        }
+        
+        /**
+         * Begin a fluent query against a database table.
+         *
+         * @param string $table
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function table($table){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::table($table);
+        }
+        
+        /**
+         * Get a new query builder instance.
+         *
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function query(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::query();
+        }
+        
+        /**
+         * Get a new raw query expression.
+         *
+         * @param mixed $value
+         * @return \Illuminate\Database\Query\Expression 
+         * @static 
+         */
+        public static function raw($value){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::raw($value);
+        }
+        
+        /**
+         * Run a select statement and return a single result.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @return mixed 
+         * @static 
+         */
+        public static function selectOne($query, $bindings = array()){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::selectOne($query, $bindings);
+        }
+        
+        /**
+         * Run a select statement against the database.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @return array 
+         * @static 
+         */
+        public static function selectFromWriteConnection($query, $bindings = array()){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::selectFromWriteConnection($query, $bindings);
+        }
+        
+        /**
+         * Run a select statement against the database.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param bool $useReadPdo
+         * @return array 
+         * @static 
+         */
+        public static function select($query, $bindings = array(), $useReadPdo = true){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::select($query, $bindings, $useReadPdo);
+        }
+        
+        /**
+         * Run an insert statement against the database.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @return bool 
+         * @static 
+         */
+        public static function insert($query, $bindings = array()){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::insert($query, $bindings);
+        }
+        
+        /**
+         * Run an update statement against the database.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @return int 
+         * @static 
+         */
+        public static function update($query, $bindings = array()){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::update($query, $bindings);
+        }
+        
+        /**
+         * Run a delete statement against the database.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @return int 
+         * @static 
+         */
+        public static function delete($query, $bindings = array()){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::delete($query, $bindings);
+        }
+        
+        /**
+         * Execute an SQL statement and return the boolean result.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @return bool 
+         * @static 
+         */
+        public static function statement($query, $bindings = array()){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::statement($query, $bindings);
+        }
+        
+        /**
+         * Run an SQL statement and get the number of rows affected.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @return int 
+         * @static 
+         */
+        public static function affectingStatement($query, $bindings = array()){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::affectingStatement($query, $bindings);
+        }
+        
+        /**
+         * Run a raw, unprepared query against the PDO connection.
+         *
+         * @param string $query
+         * @return bool 
+         * @static 
+         */
+        public static function unprepared($query){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::unprepared($query);
+        }
+        
+        /**
+         * Prepare the query bindings for execution.
+         *
+         * @param array $bindings
+         * @return array 
+         * @static 
+         */
+        public static function prepareBindings($bindings){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::prepareBindings($bindings);
+        }
+        
+        /**
+         * Execute a Closure within a transaction.
+         *
+         * @param \Closure $callback
+         * @return mixed 
+         * @throws \Throwable
+         * @static 
+         */
+        public static function transaction($callback){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::transaction($callback);
+        }
+        
+        /**
+         * Start a new database transaction.
+         *
+         * @return void 
+         * @throws Exception
+         * @static 
+         */
+        public static function beginTransaction(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::beginTransaction();
+        }
+        
+        /**
+         * Commit the active database transaction.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function commit(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::commit();
+        }
+        
+        /**
+         * Rollback the active database transaction.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function rollBack(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::rollBack();
+        }
+        
+        /**
+         * Get the number of active transactions.
+         *
+         * @return int 
+         * @static 
+         */
+        public static function transactionLevel(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::transactionLevel();
+        }
+        
+        /**
+         * Execute the given callback in "dry run" mode.
+         *
+         * @param \Closure $callback
+         * @return array 
+         * @static 
+         */
+        public static function pretend($callback){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::pretend($callback);
+        }
+        
+        /**
+         * Log a query in the connection's query log.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param float|null $time
+         * @return void 
+         * @static 
+         */
+        public static function logQuery($query, $bindings, $time = null){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::logQuery($query, $bindings, $time);
+        }
+        
+        /**
+         * Register a database query listener with the connection.
+         *
+         * @param \Closure $callback
+         * @return void 
+         * @static 
+         */
+        public static function listen($callback){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::listen($callback);
+        }
+        
+        /**
+         * Is Doctrine available?
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isDoctrineAvailable(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::isDoctrineAvailable();
+        }
+        
+        /**
+         * Get a Doctrine Schema Column instance.
+         *
+         * @param string $table
+         * @param string $column
+         * @return \Doctrine\DBAL\Schema\Column 
+         * @static 
+         */
+        public static function getDoctrineColumn($table, $column){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getDoctrineColumn($table, $column);
+        }
+        
+        /**
+         * Get the Doctrine DBAL schema manager for the connection.
+         *
+         * @return \Doctrine\DBAL\Schema\AbstractSchemaManager 
+         * @static 
+         */
+        public static function getDoctrineSchemaManager(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getDoctrineSchemaManager();
+        }
+        
+        /**
+         * Get the Doctrine DBAL database connection instance.
+         *
+         * @return \Doctrine\DBAL\Connection 
+         * @static 
+         */
+        public static function getDoctrineConnection(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getDoctrineConnection();
+        }
+        
+        /**
+         * Get the current PDO connection.
+         *
+         * @return \PDO 
+         * @static 
+         */
+        public static function getPdo(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getPdo();
+        }
+        
+        /**
+         * Get the current PDO connection used for reading.
+         *
+         * @return \PDO 
+         * @static 
+         */
+        public static function getReadPdo(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getReadPdo();
+        }
+        
+        /**
+         * Set the PDO connection.
+         *
+         * @param \PDO|null $pdo
+         * @return $this 
+         * @static 
+         */
+        public static function setPdo($pdo){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::setPdo($pdo);
+        }
+        
+        /**
+         * Set the PDO connection used for reading.
+         *
+         * @param \PDO|null $pdo
+         * @return $this 
+         * @static 
+         */
+        public static function setReadPdo($pdo){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::setReadPdo($pdo);
+        }
+        
+        /**
+         * Set the reconnect instance on the connection.
+         *
+         * @param callable $reconnector
+         * @return $this 
+         * @static 
+         */
+        public static function setReconnector($reconnector){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::setReconnector($reconnector);
+        }
+        
+        /**
+         * Get the database connection name.
+         *
+         * @return string|null 
+         * @static 
+         */
+        public static function getName(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getName();
+        }
+        
+        /**
+         * Get an option from the configuration options.
+         *
+         * @param string $option
+         * @return mixed 
+         * @static 
+         */
+        public static function getConfig($option){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getConfig($option);
+        }
+        
+        /**
+         * Get the PDO driver name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDriverName(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getDriverName();
+        }
+        
+        /**
+         * Get the query grammar used by the connection.
+         *
+         * @return \Illuminate\Database\Query\Grammars\Grammar 
+         * @static 
+         */
+        public static function getQueryGrammar(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getQueryGrammar();
+        }
+        
+        /**
+         * Set the query grammar used by the connection.
+         *
+         * @param \Illuminate\Database\Query\Grammars\Grammar $grammar
+         * @return void 
+         * @static 
+         */
+        public static function setQueryGrammar($grammar){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::setQueryGrammar($grammar);
+        }
+        
+        /**
+         * Get the schema grammar used by the connection.
+         *
+         * @return \Illuminate\Database\Schema\Grammars\Grammar 
+         * @static 
+         */
+        public static function getSchemaGrammar(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getSchemaGrammar();
+        }
+        
+        /**
+         * Set the schema grammar used by the connection.
+         *
+         * @param \Illuminate\Database\Schema\Grammars\Grammar $grammar
+         * @return void 
+         * @static 
+         */
+        public static function setSchemaGrammar($grammar){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::setSchemaGrammar($grammar);
+        }
+        
+        /**
+         * Get the query post processor used by the connection.
+         *
+         * @return \Illuminate\Database\Query\Processors\Processor 
+         * @static 
+         */
+        public static function getPostProcessor(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getPostProcessor();
+        }
+        
+        /**
+         * Set the query post processor used by the connection.
+         *
+         * @param \Illuminate\Database\Query\Processors\Processor $processor
+         * @return void 
+         * @static 
+         */
+        public static function setPostProcessor($processor){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::setPostProcessor($processor);
+        }
+        
+        /**
+         * Get the event dispatcher used by the connection.
+         *
+         * @return \Illuminate\Contracts\Events\Dispatcher 
+         * @static 
+         */
+        public static function getEventDispatcher(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getEventDispatcher();
+        }
+        
+        /**
+         * Set the event dispatcher instance on the connection.
+         *
+         * @param \Illuminate\Contracts\Events\Dispatcher $events
+         * @return void 
+         * @static 
+         */
+        public static function setEventDispatcher($events){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::setEventDispatcher($events);
+        }
+        
+        /**
+         * Determine if the connection in a "dry run".
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function pretending(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::pretending();
+        }
+        
+        /**
+         * Get the default fetch mode for the connection.
+         *
+         * @return int 
+         * @static 
+         */
+        public static function getFetchMode(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getFetchMode();
+        }
+        
+        /**
+         * Set the default fetch mode for the connection.
+         *
+         * @param int $fetchMode
+         * @return int 
+         * @static 
+         */
+        public static function setFetchMode($fetchMode){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::setFetchMode($fetchMode);
+        }
+        
+        /**
+         * Get the connection query log.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getQueryLog(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getQueryLog();
+        }
+        
+        /**
+         * Clear the query log.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function flushQueryLog(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::flushQueryLog();
+        }
+        
+        /**
+         * Enable the query log on the connection.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function enableQueryLog(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::enableQueryLog();
+        }
+        
+        /**
+         * Disable the query log on the connection.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function disableQueryLog(){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::disableQueryLog();
+        }
+        
+        /**
+         * Determine whether we're logging queries.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function logging(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::logging();
+        }
+        
+        /**
+         * Get the name of the connected database.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDatabaseName(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getDatabaseName();
+        }
+        
+        /**
+         * Set the name of the connected database.
+         *
+         * @param string $database
+         * @return string 
+         * @static 
+         */
+        public static function setDatabaseName($database){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::setDatabaseName($database);
+        }
+        
+        /**
+         * Get the table prefix for the connection.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getTablePrefix(){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::getTablePrefix();
+        }
+        
+        /**
+         * Set the table prefix in use by the connection.
+         *
+         * @param string $prefix
+         * @return void 
+         * @static 
+         */
+        public static function setTablePrefix($prefix){
+            //Method inherited from \Illuminate\Database\Connection            
+            \Illuminate\Database\MySqlConnection::setTablePrefix($prefix);
+        }
+        
+        /**
+         * Set the table prefix and return the grammar.
+         *
+         * @param \Illuminate\Database\Grammar $grammar
+         * @return \Illuminate\Database\Grammar 
+         * @static 
+         */
+        public static function withTablePrefix($grammar){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::withTablePrefix($grammar);
         }
         
     }
@@ -7011,6 +7650,82 @@ namespace {
     }
 
 
+    class Password extends \Illuminate\Support\Facades\Password{
+        
+        /**
+         * Send a password reset link to a user.
+         *
+         * @param array $credentials
+         * @param \Closure|null $callback
+         * @return string 
+         * @static 
+         */
+        public static function sendResetLink($credentials, $callback = null){
+            return \Illuminate\Auth\Passwords\PasswordBroker::sendResetLink($credentials, $callback);
+        }
+        
+        /**
+         * Send the password reset link via e-mail.
+         *
+         * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+         * @param string $token
+         * @param \Closure|null $callback
+         * @return int 
+         * @static 
+         */
+        public static function emailResetLink($user, $token, $callback = null){
+            return \Illuminate\Auth\Passwords\PasswordBroker::emailResetLink($user, $token, $callback);
+        }
+        
+        /**
+         * Reset the password for the given token.
+         *
+         * @param array $credentials
+         * @param \Closure $callback
+         * @return mixed 
+         * @static 
+         */
+        public static function reset($credentials, $callback){
+            return \Illuminate\Auth\Passwords\PasswordBroker::reset($credentials, $callback);
+        }
+        
+        /**
+         * Set a custom password validator.
+         *
+         * @param \Closure $callback
+         * @return void 
+         * @static 
+         */
+        public static function validator($callback){
+            \Illuminate\Auth\Passwords\PasswordBroker::validator($callback);
+        }
+        
+        /**
+         * Determine if the passwords match for the request.
+         *
+         * @param array $credentials
+         * @return bool 
+         * @static 
+         */
+        public static function validateNewPassword($credentials){
+            return \Illuminate\Auth\Passwords\PasswordBroker::validateNewPassword($credentials);
+        }
+        
+        /**
+         * Get the user for the given credentials.
+         *
+         * @param array $credentials
+         * @return \Illuminate\Contracts\Auth\CanResetPassword 
+         * @throws \UnexpectedValueException
+         * @static 
+         */
+        public static function getUser($credentials){
+            return \Illuminate\Auth\Passwords\PasswordBroker::getUser($credentials);
+        }
+        
+    }
+
+
     class Queue extends \Illuminate\Support\Facades\Queue{
         
         /**
@@ -7143,137 +7858,6 @@ namespace {
          */
         public static function isDownForMaintenance(){
             return \Illuminate\Queue\QueueManager::isDownForMaintenance();
-        }
-        
-        /**
-         * Push a new job onto the queue.
-         *
-         * @param string $job
-         * @param mixed $data
-         * @param string $queue
-         * @return mixed 
-         * @throws \Throwable
-         * @static 
-         */
-        public static function push($job, $data = '', $queue = null){
-            return \Illuminate\Queue\SyncQueue::push($job, $data, $queue);
-        }
-        
-        /**
-         * Push a raw payload onto the queue.
-         *
-         * @param string $payload
-         * @param string $queue
-         * @param array $options
-         * @return mixed 
-         * @static 
-         */
-        public static function pushRaw($payload, $queue = null, $options = array()){
-            return \Illuminate\Queue\SyncQueue::pushRaw($payload, $queue, $options);
-        }
-        
-        /**
-         * Push a new job onto the queue after a delay.
-         *
-         * @param \DateTime|int $delay
-         * @param string $job
-         * @param mixed $data
-         * @param string $queue
-         * @return mixed 
-         * @static 
-         */
-        public static function later($delay, $job, $data = '', $queue = null){
-            return \Illuminate\Queue\SyncQueue::later($delay, $job, $data, $queue);
-        }
-        
-        /**
-         * Pop the next job off of the queue.
-         *
-         * @param string $queue
-         * @return \Illuminate\Contracts\Queue\Job|null 
-         * @static 
-         */
-        public static function pop($queue = null){
-            return \Illuminate\Queue\SyncQueue::pop($queue);
-        }
-        
-        /**
-         * Push a new job onto the queue.
-         *
-         * @param string $queue
-         * @param string $job
-         * @param mixed $data
-         * @return mixed 
-         * @static 
-         */
-        public static function pushOn($queue, $job, $data = ''){
-            //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::pushOn($queue, $job, $data);
-        }
-        
-        /**
-         * Push a new job onto the queue after a delay.
-         *
-         * @param string $queue
-         * @param \DateTime|int $delay
-         * @param string $job
-         * @param mixed $data
-         * @return mixed 
-         * @static 
-         */
-        public static function laterOn($queue, $delay, $job, $data = ''){
-            //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::laterOn($queue, $delay, $job, $data);
-        }
-        
-        /**
-         * Marshal a push queue request and fire the job.
-         *
-         * @throws \RuntimeException
-         * @deprecated since version 5.1.
-         * @static 
-         */
-        public static function marshal(){
-            //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::marshal();
-        }
-        
-        /**
-         * Push an array of jobs onto the queue.
-         *
-         * @param array $jobs
-         * @param mixed $data
-         * @param string $queue
-         * @return mixed 
-         * @static 
-         */
-        public static function bulk($jobs, $data = '', $queue = null){
-            //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::bulk($jobs, $data, $queue);
-        }
-        
-        /**
-         * Set the IoC container instance.
-         *
-         * @param \Illuminate\Container\Container $container
-         * @return void 
-         * @static 
-         */
-        public static function setContainer($container){
-            //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\SyncQueue::setContainer($container);
-        }
-        
-        /**
-         * Set the encrypter instance.
-         *
-         * @param \Illuminate\Contracts\Encryption\Encrypter $crypt
-         * @return void 
-         * @static 
-         */
-        public static function setEncrypter($crypt){
-            //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\SyncQueue::setEncrypter($crypt);
         }
         
     }
@@ -9790,6 +10374,157 @@ namespace {
     }
 
 
+    class Schema extends \Illuminate\Support\Facades\Schema{
+        
+        /**
+         * Determine if the given table exists.
+         *
+         * @param string $table
+         * @return bool 
+         * @static 
+         */
+        public static function hasTable($table){
+            return \Illuminate\Database\Schema\MySqlBuilder::hasTable($table);
+        }
+        
+        /**
+         * Get the column listing for a given table.
+         *
+         * @param string $table
+         * @return array 
+         * @static 
+         */
+        public static function getColumnListing($table){
+            return \Illuminate\Database\Schema\MySqlBuilder::getColumnListing($table);
+        }
+        
+        /**
+         * Determine if the given table has a given column.
+         *
+         * @param string $table
+         * @param string $column
+         * @return bool 
+         * @static 
+         */
+        public static function hasColumn($table, $column){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::hasColumn($table, $column);
+        }
+        
+        /**
+         * Determine if the given table has given columns.
+         *
+         * @param string $table
+         * @param array $columns
+         * @return bool 
+         * @static 
+         */
+        public static function hasColumns($table, $columns){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::hasColumns($table, $columns);
+        }
+        
+        /**
+         * Modify a table on the schema.
+         *
+         * @param string $table
+         * @param \Closure $callback
+         * @return \Illuminate\Database\Schema\Blueprint 
+         * @static 
+         */
+        public static function table($table, $callback){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::table($table, $callback);
+        }
+        
+        /**
+         * Create a new table on the schema.
+         *
+         * @param string $table
+         * @param \Closure $callback
+         * @return \Illuminate\Database\Schema\Blueprint 
+         * @static 
+         */
+        public static function create($table, $callback){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::create($table, $callback);
+        }
+        
+        /**
+         * Drop a table from the schema.
+         *
+         * @param string $table
+         * @return \Illuminate\Database\Schema\Blueprint 
+         * @static 
+         */
+        public static function drop($table){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::drop($table);
+        }
+        
+        /**
+         * Drop a table from the schema if it exists.
+         *
+         * @param string $table
+         * @return \Illuminate\Database\Schema\Blueprint 
+         * @static 
+         */
+        public static function dropIfExists($table){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::dropIfExists($table);
+        }
+        
+        /**
+         * Rename a table on the schema.
+         *
+         * @param string $from
+         * @param string $to
+         * @return \Illuminate\Database\Schema\Blueprint 
+         * @static 
+         */
+        public static function rename($from, $to){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::rename($from, $to);
+        }
+        
+        /**
+         * Get the database connection instance.
+         *
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */
+        public static function getConnection(){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::getConnection();
+        }
+        
+        /**
+         * Set the database connection instance.
+         *
+         * @param \Illuminate\Database\Connection $connection
+         * @return $this 
+         * @static 
+         */
+        public static function setConnection($connection){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            return \Illuminate\Database\Schema\MySqlBuilder::setConnection($connection);
+        }
+        
+        /**
+         * Set the Schema Blueprint resolver callback.
+         *
+         * @param \Closure $resolver
+         * @return void 
+         * @static 
+         */
+        public static function blueprintResolver($resolver){
+            //Method inherited from \Illuminate\Database\Schema\Builder            
+            \Illuminate\Database\Schema\MySqlBuilder::blueprintResolver($resolver);
+        }
+        
+    }
+
+
     class Session extends \Illuminate\Support\Facades\Session{
         
         /**
@@ -11714,6 +12449,2531 @@ namespace {
         public static function offsetUnset($key){
             //Method inherited from \DebugBar\DebugBar            
             return \Barryvdh\Debugbar\LaravelDebugbar::offsetUnset($key);
+        }
+        
+    }
+
+
+    class Burp extends \Zofe\Burp\Burp{
+        
+    }
+
+
+    class BurpEvent extends \Zofe\Burp\BurpEvent{
+        
+    }
+
+
+    class Rapyd extends \Zofe\Rapyd\Facades\Rapyd{
+        
+        /**
+         * Bind a Container to Rapyd
+         *
+         * @param \Zofe\Rapyd\Container $container
+         * @static 
+         */
+        public static function setContainer($container){
+            return \Zofe\Rapyd\Rapyd::setContainer($container);
+        }
+        
+        /**
+         * Get the Container from Rapyd
+         *
+         * @param string $service
+         * @return \Zofe\Rapyd\Container 
+         * @static 
+         */
+        public static function getContainer($service = null){
+            return \Zofe\Rapyd\Rapyd::getContainer($service);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function head(){
+            return \Zofe\Rapyd\Rapyd::head();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function scripts(){
+            return \Zofe\Rapyd\Rapyd::scripts();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function styles($demo = false){
+            return \Zofe\Rapyd\Rapyd::styles($demo);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function js($js){
+            return \Zofe\Rapyd\Rapyd::js($js);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function css($css){
+            return \Zofe\Rapyd\Rapyd::css($css);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function tag($tag){
+            return \Zofe\Rapyd\Rapyd::tag($tag);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function script($script){
+            return \Zofe\Rapyd\Rapyd::script($script);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function style($style){
+            return \Zofe\Rapyd\Rapyd::style($style);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function pop_script(){
+            return \Zofe\Rapyd\Rapyd::pop_script();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function pop_style(){
+            return \Zofe\Rapyd\Rapyd::pop_style();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function qs($value, $default = false){
+            return \Zofe\Rapyd\Rapyd::qs($value, $default);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function url($set = ''){
+            return \Zofe\Rapyd\Rapyd::url($set);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function setForm($form){
+            return \Zofe\Rapyd\Rapyd::setForm($form);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getForm(){
+            return \Zofe\Rapyd\Rapyd::getForm();
+        }
+        
+    }
+
+
+    class DataSet extends \Zofe\Rapyd\Facades\DataSet{
+        
+        /**
+         * 
+         *
+         * @param $source
+         * @return static 
+         * @static 
+         */
+        public static function source($source){
+            return \Zofe\Rapyd\DataSet::source($source);
+        }
+        
+        /**
+         * 
+         *
+         * @param $field
+         * @param string $dir
+         * @return mixed 
+         * @static 
+         */
+        public static function orderbyLink($field, $dir = 'asc'){
+            return \Zofe\Rapyd\DataSet::orderbyLink($field, $dir);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function orderBy($field, $direction = 'asc'){
+            return \Zofe\Rapyd\DataSet::orderBy($field, $direction);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function onOrderby($field, $direction = ''){
+            return \Zofe\Rapyd\DataSet::onOrderby($field, $direction);
+        }
+        
+        /**
+         * 
+         *
+         * @param $items
+         * @return $this 
+         * @static 
+         */
+        public static function paginate($items){
+            return \Zofe\Rapyd\DataSet::paginate($items);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function build(){
+            return \Zofe\Rapyd\DataSet::build();
+        }
+        
+        /**
+         * 
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function getSet(){
+            return \Zofe\Rapyd\DataSet::getSet();
+        }
+        
+        /**
+         * current data collection
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getData(){
+            return \Zofe\Rapyd\DataSet::getData();
+        }
+        
+        /**
+         * total row count
+         *
+         * @return string 
+         * @static 
+         */
+        public static function totalRows(){
+            return \Zofe\Rapyd\DataSet::totalRows();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @return mixed 
+         * @static 
+         */
+        public static function links($view = null){
+            return \Zofe\Rapyd\DataSet::links($view);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function havePagination(){
+            return \Zofe\Rapyd\DataSet::havePagination();
+        }
+        
+        /**
+         * add the ability to check & enable "order by" of given field/s
+         * by default you can order by
+         *
+         * @param mixed $fieldname
+         * @static 
+         */
+        public static function addOrderBy($fieldname){
+            return \Zofe\Rapyd\DataSet::addOrderBy($fieldname);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function button($name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::button($name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function link($url, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::link($url, $name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $route
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkRoute($route, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::linkRoute($route, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $action
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkAction($action, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::linkAction($action, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param $label
+         * @return $this 
+         * @static 
+         */
+        public static function label($label){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::label($label);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function message($message){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::message($message);
+        }
+        
+        /**
+         * set attributes for widget
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attributes($attributes){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::attributes($attributes);
+        }
+        
+        /**
+         * add an attribute, or shortcut for attributes()
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attr($attribute, $value = null){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::attr($attribute, $value);
+        }
+        
+        /**
+         * return a attributes in string format
+         *
+         * @return string 
+         * @static 
+         */
+        public static function buildAttributes(){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::buildAttributes();
+        }
+        
+        /**
+         * return a form with a nested action button
+         *
+         * @param $url
+         * @param $method
+         * @param $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function formButton($url, $method, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataSet::formButton($url, $method, $name, $position, $attributes);
+        }
+        
+    }
+
+
+    class DataGrid extends \Zofe\Rapyd\Facades\DataGrid{
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $label
+         * @param bool $orderby
+         * @return \Zofe\Rapyd\DataGrid\Column 
+         * @static 
+         */
+        public static function add($name, $label = null, $orderby = false){
+            return \Zofe\Rapyd\DataGrid\DataGrid::add($name, $label, $orderby);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function build($view = ''){
+            return \Zofe\Rapyd\DataGrid\DataGrid::build($view);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function buildCSV($file = '', $timestamp = '', $sanitize = true, $del = array()){
+            return \Zofe\Rapyd\DataGrid\DataGrid::buildCSV($file, $timestamp, $sanitize, $del);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getGrid($view = ''){
+            return \Zofe\Rapyd\DataGrid\DataGrid::getGrid($view);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function edit($uri, $label = 'Edit', $actions = 'show|modify|delete', $key = ''){
+            return \Zofe\Rapyd\DataGrid\DataGrid::edit($uri, $label, $actions, $key);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getColumn($column_name){
+            return \Zofe\Rapyd\DataGrid\DataGrid::getColumn($column_name);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function addActions($uri, $label = 'Edit', $actions = 'show|modify|delete', $key = ''){
+            return \Zofe\Rapyd\DataGrid\DataGrid::addActions($uri, $label, $actions, $key);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function row($callable){
+            return \Zofe\Rapyd\DataGrid\DataGrid::row($callable);
+        }
+        
+        /**
+         * 
+         *
+         * @param $source
+         * @return static 
+         * @static 
+         */
+        public static function source($source){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::source($source);
+        }
+        
+        /**
+         * 
+         *
+         * @param $field
+         * @param string $dir
+         * @return mixed 
+         * @static 
+         */
+        public static function orderbyLink($field, $dir = 'asc'){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::orderbyLink($field, $dir);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function orderBy($field, $direction = 'asc'){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::orderBy($field, $direction);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function onOrderby($field, $direction = ''){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::onOrderby($field, $direction);
+        }
+        
+        /**
+         * 
+         *
+         * @param $items
+         * @return $this 
+         * @static 
+         */
+        public static function paginate($items){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::paginate($items);
+        }
+        
+        /**
+         * 
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function getSet(){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::getSet();
+        }
+        
+        /**
+         * current data collection
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getData(){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::getData();
+        }
+        
+        /**
+         * total row count
+         *
+         * @return string 
+         * @static 
+         */
+        public static function totalRows(){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::totalRows();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @return mixed 
+         * @static 
+         */
+        public static function links($view = null){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::links($view);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function havePagination(){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::havePagination();
+        }
+        
+        /**
+         * add the ability to check & enable "order by" of given field/s
+         * by default you can order by
+         *
+         * @param mixed $fieldname
+         * @static 
+         */
+        public static function addOrderBy($fieldname){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataGrid\DataGrid::addOrderBy($fieldname);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function button($name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::button($name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function link($url, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::link($url, $name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $route
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkRoute($route, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::linkRoute($route, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $action
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkAction($action, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::linkAction($action, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param $label
+         * @return $this 
+         * @static 
+         */
+        public static function label($label){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::label($label);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function message($message){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::message($message);
+        }
+        
+        /**
+         * set attributes for widget
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attributes($attributes){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::attributes($attributes);
+        }
+        
+        /**
+         * add an attribute, or shortcut for attributes()
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attr($attribute, $value = null){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::attr($attribute, $value);
+        }
+        
+        /**
+         * return a attributes in string format
+         *
+         * @return string 
+         * @static 
+         */
+        public static function buildAttributes(){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::buildAttributes();
+        }
+        
+        /**
+         * return a form with a nested action button
+         *
+         * @param $url
+         * @param $method
+         * @param $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function formButton($url, $method, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataGrid\DataGrid::formButton($url, $method, $name, $position, $attributes);
+        }
+        
+    }
+
+
+    class DataForm extends \Zofe\Rapyd\Facades\DataForm{
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $label
+         * @param string $type
+         * @param string $validation
+         * @return mixed 
+         * @static 
+         */
+        public static function add($name, $label, $type, $validation = ''){
+            return \Zofe\Rapyd\DataForm\DataForm::add($name, $label, $type, $validation);
+        }
+        
+        /**
+         * remove field from list
+         *
+         * @param $fieldname
+         * @return $this 
+         * @static 
+         */
+        public static function remove($fieldname){
+            return \Zofe\Rapyd\DataForm\DataForm::remove($fieldname);
+        }
+        
+        /**
+         * remove field where type==$type from field list and button container
+         *
+         * @param $type
+         * @return $this 
+         * @static 
+         */
+        public static function removeType($type){
+            return \Zofe\Rapyd\DataForm\DataForm::removeType($type);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $options
+         * @return $this 
+         * @static 
+         */
+        public static function submit($name, $position = 'BL', $options = array()){
+            return \Zofe\Rapyd\DataForm\DataForm::submit($name, $position, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $options
+         * @return $this 
+         * @static 
+         */
+        public static function reset($name = '', $position = 'BL', $options = array()){
+            return \Zofe\Rapyd\DataForm\DataForm::reset($name, $position, $options);
+        }
+        
+        /**
+         * get field instance from fields array
+         *
+         * @param string $field_name
+         * @param array $attributes
+         * @return \Zofe\Rapyd\DataForm\Field $field
+         * @static 
+         */
+        public static function field($field_name, $attributes = array()){
+            return \Zofe\Rapyd\DataForm\DataForm::field($field_name, $attributes);
+        }
+        
+        /**
+         * get entire field output (label, output, and messages)
+         *
+         * @param $field_name
+         * @param array $ttributes
+         * @return string 
+         * @static 
+         */
+        public static function render($field_name, $attributes = array()){
+            return \Zofe\Rapyd\DataForm\DataForm::render($field_name, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @return static 
+         * @static 
+         */
+        public static function create(){
+            return \Zofe\Rapyd\DataForm\DataForm::create();
+        }
+        
+        /**
+         * 
+         *
+         * @param \Illuminate\Database\Eloquent\Model $source
+         * @return static 
+         * @static 
+         */
+        public static function source($source = ''){
+            return \Zofe\Rapyd\DataForm\DataForm::source($source);
+        }
+        
+        /**
+         * add custom error messages to the validator inscance
+         *
+         * @param array $messages
+         * @static 
+         */
+        public static function errors($messages = array()){
+            return \Zofe\Rapyd\DataForm\DataForm::errors($messages);
+        }
+        
+        /**
+         * append error (to be used in passed/saved closure)
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function error($error){
+            return \Zofe\Rapyd\DataForm\DataForm::error($error);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $process_status
+         * @return bool 
+         * @static 
+         */
+        public static function on($process_status = 'false'){
+            return \Zofe\Rapyd\DataForm\DataForm::on($process_status);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function prepareForm(){
+            return \Zofe\Rapyd\DataForm\DataForm::prepareForm();
+        }
+        
+        /**
+         * build form output and prepare form partials (header / footer / .
+         * 
+         * .)
+         *
+         * @param string $view
+         * @static 
+         */
+        public static function build($view = ''){
+            return \Zofe\Rapyd\DataForm\DataForm::build($view);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @return string 
+         * @static 
+         */
+        public static function getForm($view = ''){
+            return \Zofe\Rapyd\DataForm\DataForm::getForm($view);
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function hasRedirect(){
+            return \Zofe\Rapyd\DataForm\DataForm::hasRedirect();
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function hasCustomOutput(){
+            return \Zofe\Rapyd\DataForm\DataForm::hasCustomOutput();
+        }
+        
+        /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRedirect(){
+            return \Zofe\Rapyd\DataForm\DataForm::getRedirect();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $viewname
+         * @param array $array of values for view
+         * @return \Zofe\Rapyd\DataForm\View|\Zofe\Rapyd\DataForm\Redirect 
+         * @static 
+         */
+        public static function view($viewname = 'rapyd::form', $array = array()){
+            return \Zofe\Rapyd\DataForm\DataForm::view($viewname, $array);
+        }
+        
+        /**
+         * build form and check if process status is "success" then execute a callable
+         *
+         * @param callable $callable
+         * @static 
+         */
+        public static function saved($callable){
+            return \Zofe\Rapyd\DataForm\DataForm::saved($callable);
+        }
+        
+        /**
+         * alias for saved
+         *
+         * @param callable $callable
+         * @static 
+         */
+        public static function passed($callable){
+            return \Zofe\Rapyd\DataForm\DataForm::passed($callable);
+        }
+        
+        /**
+         * Set a value to model without show anything (it appends an auto-field)
+         * It set value on insert and update (but is configurable)
+         *
+         * @param $field
+         * @param $value
+         * @param bool $insert
+         * @param bool $update
+         * @static 
+         */
+        public static function set($field, $value = null, $insert = true, $update = true){
+            return \Zofe\Rapyd\DataForm\DataForm::set($field, $value, $insert, $update);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function compact(){
+            return \Zofe\Rapyd\DataForm\DataForm::compact();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function button($name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::button($name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function link($url, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::link($url, $name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $route
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkRoute($route, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::linkRoute($route, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $action
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkAction($action, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::linkAction($action, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param $label
+         * @return $this 
+         * @static 
+         */
+        public static function label($label){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::label($label);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function message($message){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::message($message);
+        }
+        
+        /**
+         * set attributes for widget
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attributes($attributes){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::attributes($attributes);
+        }
+        
+        /**
+         * add an attribute, or shortcut for attributes()
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attr($attribute, $value = null){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::attr($attribute, $value);
+        }
+        
+        /**
+         * return a attributes in string format
+         *
+         * @return string 
+         * @static 
+         */
+        public static function buildAttributes(){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::buildAttributes();
+        }
+        
+        /**
+         * return a form with a nested action button
+         *
+         * @param $url
+         * @param $method
+         * @param $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function formButton($url, $method, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataForm\DataForm::formButton($url, $method, $name, $position, $attributes);
+        }
+        
+    }
+
+
+    class DataEdit extends \Zofe\Rapyd\Facades\DataEdit{
+        
+        /**
+         * enable auto-back feature on given actions
+         *
+         * @param string $actions
+         * @param string $uri
+         * @return $this 
+         * @static 
+         */
+        public static function back($actions = 'insert|update|do_delete', $url = ''){
+            return \Zofe\Rapyd\DataEdit\DataEdit::back($actions, $url);
+        }
+        
+        /**
+         * just an alias for getForm()
+         *
+         * @param string $view
+         * @return string the form output
+         * @static 
+         */
+        public static function getEdit($view = ''){
+            return \Zofe\Rapyd\DataEdit\DataEdit::getEdit($view);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $label
+         * @param string $type
+         * @param string $validation
+         * @return mixed 
+         * @static 
+         */
+        public static function add($name, $label, $type, $validation = ''){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::add($name, $label, $type, $validation);
+        }
+        
+        /**
+         * remove field from list
+         *
+         * @param $fieldname
+         * @return $this 
+         * @static 
+         */
+        public static function remove($fieldname){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::remove($fieldname);
+        }
+        
+        /**
+         * remove field where type==$type from field list and button container
+         *
+         * @param $type
+         * @return $this 
+         * @static 
+         */
+        public static function removeType($type){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::removeType($type);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $options
+         * @return $this 
+         * @static 
+         */
+        public static function submit($name, $position = 'BL', $options = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::submit($name, $position, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $options
+         * @return $this 
+         * @static 
+         */
+        public static function reset($name = '', $position = 'BL', $options = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::reset($name, $position, $options);
+        }
+        
+        /**
+         * get field instance from fields array
+         *
+         * @param string $field_name
+         * @param array $attributes
+         * @return \Zofe\Rapyd\DataForm\Field $field
+         * @static 
+         */
+        public static function field($field_name, $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::field($field_name, $attributes);
+        }
+        
+        /**
+         * get entire field output (label, output, and messages)
+         *
+         * @param $field_name
+         * @param array $ttributes
+         * @return string 
+         * @static 
+         */
+        public static function render($field_name, $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::render($field_name, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @return static 
+         * @static 
+         */
+        public static function create(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::create();
+        }
+        
+        /**
+         * 
+         *
+         * @param \Illuminate\Database\Eloquent\Model $source
+         * @return static 
+         * @static 
+         */
+        public static function source($source = ''){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::source($source);
+        }
+        
+        /**
+         * add custom error messages to the validator inscance
+         *
+         * @param array $messages
+         * @static 
+         */
+        public static function errors($messages = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::errors($messages);
+        }
+        
+        /**
+         * append error (to be used in passed/saved closure)
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function error($error){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::error($error);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $process_status
+         * @return bool 
+         * @static 
+         */
+        public static function on($process_status = 'false'){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::on($process_status);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function prepareForm(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::prepareForm();
+        }
+        
+        /**
+         * build form output and prepare form partials (header / footer / .
+         * 
+         * .)
+         *
+         * @param string $view
+         * @static 
+         */
+        public static function build($view = ''){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::build($view);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @return string 
+         * @static 
+         */
+        public static function getForm($view = ''){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::getForm($view);
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function hasRedirect(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::hasRedirect();
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function hasCustomOutput(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::hasCustomOutput();
+        }
+        
+        /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRedirect(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::getRedirect();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $viewname
+         * @param array $array of values for view
+         * @return \Zofe\Rapyd\DataForm\View|\Zofe\Rapyd\DataForm\Redirect 
+         * @static 
+         */
+        public static function view($viewname = 'rapyd::form', $array = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::view($viewname, $array);
+        }
+        
+        /**
+         * build form and check if process status is "success" then execute a callable
+         *
+         * @param callable $callable
+         * @static 
+         */
+        public static function saved($callable){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::saved($callable);
+        }
+        
+        /**
+         * alias for saved
+         *
+         * @param callable $callable
+         * @static 
+         */
+        public static function passed($callable){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::passed($callable);
+        }
+        
+        /**
+         * Set a value to model without show anything (it appends an auto-field)
+         * It set value on insert and update (but is configurable)
+         *
+         * @param $field
+         * @param $value
+         * @param bool $insert
+         * @param bool $update
+         * @static 
+         */
+        public static function set($field, $value = null, $insert = true, $update = true){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::set($field, $value, $insert, $update);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function compact(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataEdit\DataEdit::compact();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function button($name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::button($name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function link($url, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::link($url, $name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $route
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkRoute($route, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::linkRoute($route, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $action
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkAction($action, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::linkAction($action, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param $label
+         * @return $this 
+         * @static 
+         */
+        public static function label($label){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::label($label);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function message($message){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::message($message);
+        }
+        
+        /**
+         * set attributes for widget
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attributes($attributes){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::attributes($attributes);
+        }
+        
+        /**
+         * add an attribute, or shortcut for attributes()
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attr($attribute, $value = null){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::attr($attribute, $value);
+        }
+        
+        /**
+         * return a attributes in string format
+         *
+         * @return string 
+         * @static 
+         */
+        public static function buildAttributes(){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::buildAttributes();
+        }
+        
+        /**
+         * return a form with a nested action button
+         *
+         * @param $url
+         * @param $method
+         * @param $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function formButton($url, $method, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataEdit\DataEdit::formButton($url, $method, $name, $position, $attributes);
+        }
+        
+    }
+
+
+    class DataFilter extends \Zofe\Rapyd\Facades\DataFilter{
+        
+        /**
+         * 
+         *
+         * @param $source
+         * @return static 
+         * @static 
+         */
+        public static function source($source = null){
+            return \Zofe\Rapyd\DataFilter\DataFilter::source($source);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $label
+         * @param string $type
+         * @param string $validation
+         * @return mixed 
+         * @static 
+         */
+        public static function add($name, $label, $type, $validation = ''){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::add($name, $label, $type, $validation);
+        }
+        
+        /**
+         * remove field from list
+         *
+         * @param $fieldname
+         * @return $this 
+         * @static 
+         */
+        public static function remove($fieldname){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::remove($fieldname);
+        }
+        
+        /**
+         * remove field where type==$type from field list and button container
+         *
+         * @param $type
+         * @return $this 
+         * @static 
+         */
+        public static function removeType($type){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::removeType($type);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $options
+         * @return $this 
+         * @static 
+         */
+        public static function submit($name, $position = 'BL', $options = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::submit($name, $position, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $options
+         * @return $this 
+         * @static 
+         */
+        public static function reset($name = '', $position = 'BL', $options = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::reset($name, $position, $options);
+        }
+        
+        /**
+         * get field instance from fields array
+         *
+         * @param string $field_name
+         * @param array $attributes
+         * @return \Zofe\Rapyd\DataForm\Field $field
+         * @static 
+         */
+        public static function field($field_name, $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::field($field_name, $attributes);
+        }
+        
+        /**
+         * get entire field output (label, output, and messages)
+         *
+         * @param $field_name
+         * @param array $ttributes
+         * @return string 
+         * @static 
+         */
+        public static function render($field_name, $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::render($field_name, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @return static 
+         * @static 
+         */
+        public static function create(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::create();
+        }
+        
+        /**
+         * add custom error messages to the validator inscance
+         *
+         * @param array $messages
+         * @static 
+         */
+        public static function errors($messages = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::errors($messages);
+        }
+        
+        /**
+         * append error (to be used in passed/saved closure)
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function error($error){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::error($error);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $process_status
+         * @return bool 
+         * @static 
+         */
+        public static function on($process_status = 'false'){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::on($process_status);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function prepareForm(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::prepareForm();
+        }
+        
+        /**
+         * build form output and prepare form partials (header / footer / .
+         * 
+         * .)
+         *
+         * @param string $view
+         * @static 
+         */
+        public static function build($view = ''){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::build($view);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @return string 
+         * @static 
+         */
+        public static function getForm($view = ''){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::getForm($view);
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function hasRedirect(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::hasRedirect();
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function hasCustomOutput(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::hasCustomOutput();
+        }
+        
+        /**
+         * 
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getRedirect(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::getRedirect();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $viewname
+         * @param array $array of values for view
+         * @return \Zofe\Rapyd\DataForm\View|\Zofe\Rapyd\DataForm\Redirect 
+         * @static 
+         */
+        public static function view($viewname = 'rapyd::form', $array = array()){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::view($viewname, $array);
+        }
+        
+        /**
+         * build form and check if process status is "success" then execute a callable
+         *
+         * @param callable $callable
+         * @static 
+         */
+        public static function saved($callable){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::saved($callable);
+        }
+        
+        /**
+         * alias for saved
+         *
+         * @param callable $callable
+         * @static 
+         */
+        public static function passed($callable){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::passed($callable);
+        }
+        
+        /**
+         * Set a value to model without show anything (it appends an auto-field)
+         * It set value on insert and update (but is configurable)
+         *
+         * @param $field
+         * @param $value
+         * @param bool $insert
+         * @param bool $update
+         * @static 
+         */
+        public static function set($field, $value = null, $insert = true, $update = true){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::set($field, $value, $insert, $update);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function compact(){
+            //Method inherited from \Zofe\Rapyd\DataForm\DataForm            
+            return \Zofe\Rapyd\DataFilter\DataFilter::compact();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function button($name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::button($name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function link($url, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::link($url, $name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $route
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkRoute($route, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::linkRoute($route, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $action
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkAction($action, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::linkAction($action, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param $label
+         * @return $this 
+         * @static 
+         */
+        public static function label($label){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::label($label);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function message($message){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::message($message);
+        }
+        
+        /**
+         * set attributes for widget
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attributes($attributes){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::attributes($attributes);
+        }
+        
+        /**
+         * add an attribute, or shortcut for attributes()
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attr($attribute, $value = null){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::attr($attribute, $value);
+        }
+        
+        /**
+         * return a attributes in string format
+         *
+         * @return string 
+         * @static 
+         */
+        public static function buildAttributes(){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::buildAttributes();
+        }
+        
+        /**
+         * return a form with a nested action button
+         *
+         * @param $url
+         * @param $method
+         * @param $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function formButton($url, $method, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataFilter\DataFilter::formButton($url, $method, $name, $position, $attributes);
+        }
+        
+    }
+
+
+    class DataEmbed extends \Zofe\Rapyd\Facades\DataEmbed{
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function source($url, $id){
+            return \Zofe\Rapyd\DataEmbed::source($url, $id);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function build($view = 'rapyd::dataembed'){
+            return \Zofe\Rapyd\DataEmbed::build($view);
+        }
+        
+    }
+
+
+    class DataTree extends \Zofe\Rapyd\Facades\DataTree{
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function source($source){
+            return \Zofe\Rapyd\DataTree\DataTree::source($source);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function build($view = ''){
+            return \Zofe\Rapyd\DataTree\DataTree::build($view);
+        }
+        
+        /**
+         * Add a submit button to allow saving the current order of the nodes
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $options
+         * @return $this 
+         * @static 
+         */
+        public static function submit($name, $position = 'BL', $options = array()){
+            return \Zofe\Rapyd\DataTree\DataTree::submit($name, $position, $options);
+        }
+        
+        /**
+         * Get/Set maximum depth of the tree. Nesting beyond this limit will not
+         * be allowed.
+         * 
+         * Defaults to 5.
+         *
+         * @param integer $value
+         * @return $this|int 
+         * @static 
+         */
+        public static function maxDepth($value = null){
+            return \Zofe\Rapyd\DataTree\DataTree::maxDepth($value);
+        }
+        
+        /**
+         * Get/Set a custom javascript string to be executed at each order change.
+         *
+         * @param string $value
+         * @return $this|string 
+         * @static 
+         */
+        public static function onChange($value = null){
+            return \Zofe\Rapyd\DataTree\DataTree::onChange($value);
+        }
+        
+        /**
+         * Enable/Disable automatic ajax-saving at each change
+         *
+         * @param null $value
+         * @return $this 
+         * @static 
+         */
+        public static function autoSave($value = null){
+            return \Zofe\Rapyd\DataTree\DataTree::autoSave($value);
+        }
+        
+        /**
+         * Set the group of the DataTree. Multiple DataTrees of the same
+         * group will be able to exchange items.
+         *
+         * @param null $value
+         * @return $this|int 
+         * @static 
+         */
+        public static function group($value = null){
+            return \Zofe\Rapyd\DataTree\DataTree::group($value);
+        }
+        
+        /**
+         * Get/Set the input name of the DataTree data. You have to change
+         * this if you display multiple datatrees in the same page.
+         *
+         * @param null $value
+         * @return $this|string 
+         * @static 
+         */
+        public static function name($value = null){
+            return \Zofe\Rapyd\DataTree\DataTree::name($value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function initJsWidget(){
+            return \Zofe\Rapyd\DataTree\DataTree::initJsWidget();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $label
+         * @param bool $orderby
+         * @return \Zofe\Rapyd\DataGrid\Column 
+         * @static 
+         */
+        public static function add($name, $label = null, $orderby = false){
+            //Method inherited from \Zofe\Rapyd\DataGrid\DataGrid            
+            return \Zofe\Rapyd\DataTree\DataTree::add($name, $label, $orderby);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function buildCSV($file = '', $timestamp = '', $sanitize = true, $del = array()){
+            //Method inherited from \Zofe\Rapyd\DataGrid\DataGrid            
+            return \Zofe\Rapyd\DataTree\DataTree::buildCSV($file, $timestamp, $sanitize, $del);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getGrid($view = ''){
+            //Method inherited from \Zofe\Rapyd\DataGrid\DataGrid            
+            return \Zofe\Rapyd\DataTree\DataTree::getGrid($view);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function edit($uri, $label = 'Edit', $actions = 'show|modify|delete', $key = ''){
+            //Method inherited from \Zofe\Rapyd\DataGrid\DataGrid            
+            return \Zofe\Rapyd\DataTree\DataTree::edit($uri, $label, $actions, $key);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getColumn($column_name){
+            //Method inherited from \Zofe\Rapyd\DataGrid\DataGrid            
+            return \Zofe\Rapyd\DataTree\DataTree::getColumn($column_name);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function addActions($uri, $label = 'Edit', $actions = 'show|modify|delete', $key = ''){
+            //Method inherited from \Zofe\Rapyd\DataGrid\DataGrid            
+            return \Zofe\Rapyd\DataTree\DataTree::addActions($uri, $label, $actions, $key);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function row($callable){
+            //Method inherited from \Zofe\Rapyd\DataGrid\DataGrid            
+            return \Zofe\Rapyd\DataTree\DataTree::row($callable);
+        }
+        
+        /**
+         * 
+         *
+         * @param $field
+         * @param string $dir
+         * @return mixed 
+         * @static 
+         */
+        public static function orderbyLink($field, $dir = 'asc'){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::orderbyLink($field, $dir);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function orderBy($field, $direction = 'asc'){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::orderBy($field, $direction);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function onOrderby($field, $direction = ''){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::onOrderby($field, $direction);
+        }
+        
+        /**
+         * 
+         *
+         * @param $items
+         * @return $this 
+         * @static 
+         */
+        public static function paginate($items){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::paginate($items);
+        }
+        
+        /**
+         * 
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function getSet(){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::getSet();
+        }
+        
+        /**
+         * current data collection
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getData(){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::getData();
+        }
+        
+        /**
+         * total row count
+         *
+         * @return string 
+         * @static 
+         */
+        public static function totalRows(){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::totalRows();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $view
+         * @return mixed 
+         * @static 
+         */
+        public static function links($view = null){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::links($view);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function havePagination(){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::havePagination();
+        }
+        
+        /**
+         * add the ability to check & enable "order by" of given field/s
+         * by default you can order by
+         *
+         * @param mixed $fieldname
+         * @static 
+         */
+        public static function addOrderBy($fieldname){
+            //Method inherited from \Zofe\Rapyd\DataSet            
+            return \Zofe\Rapyd\DataTree\DataTree::addOrderBy($fieldname);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function button($name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::button($name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function link($url, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::link($url, $name, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $route
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkRoute($route, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::linkRoute($route, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $action
+         * @param string $name
+         * @param array $parameters
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function linkAction($action, $name, $parameters = array(), $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::linkAction($action, $name, $parameters, $position, $attributes);
+        }
+        
+        /**
+         * 
+         *
+         * @param $label
+         * @return $this 
+         * @static 
+         */
+        public static function label($label){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::label($label);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $url
+         * @param string $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function message($message){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::message($message);
+        }
+        
+        /**
+         * set attributes for widget
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attributes($attributes){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::attributes($attributes);
+        }
+        
+        /**
+         * add an attribute, or shortcut for attributes()
+         *
+         * @param $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function attr($attribute, $value = null){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::attr($attribute, $value);
+        }
+        
+        /**
+         * return a attributes in string format
+         *
+         * @return string 
+         * @static 
+         */
+        public static function buildAttributes(){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::buildAttributes();
+        }
+        
+        /**
+         * return a form with a nested action button
+         *
+         * @param $url
+         * @param $method
+         * @param $name
+         * @param string $position
+         * @param array $attributes
+         * @return $this 
+         * @static 
+         */
+        public static function formButton($url, $method, $name, $position = 'BL', $attributes = array()){
+            //Method inherited from \Zofe\Rapyd\Widget            
+            return \Zofe\Rapyd\DataTree\DataTree::formButton($url, $method, $name, $position, $attributes);
+        }
+        
+    }
+
+
+    class Documenter extends \Zofe\Rapyd\Facades\Documenter{
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function showCode($filepath){
+            return \Zofe\Rapyd\Documenter::showCode($filepath);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function showMethod($class, $methods){
+            return \Zofe\Rapyd\Documenter::showMethod($class, $methods);
         }
         
     }

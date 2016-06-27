@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Session;
-
+use Auth;
 class Admin {
 
 	/**
@@ -35,7 +35,7 @@ class Admin {
 	 */
 	public function handle($request, Closure $next)
 	{
-
+		/*
 		if ($this->auth->guest()) {
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
@@ -43,8 +43,9 @@ class Admin {
 				return redirect()->guest('auth/login');
 			}
 		}
+		*/
 		
-
+		/*
 		if($this->auth->user()->access != 2){ //admin access
 			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
@@ -52,6 +53,13 @@ class Admin {
 				return redirect()->guest('auth/login');
 			}
 		}
-		return $next($request);
+		*/
+		if ( Auth::check() && Auth::user()->access == 2 )
+		{
+			return $next($request);
+		}
+		Session::flash('user-info', 'You have no rights');  //if user do not login
+		return redirect()->guest('auth/login');
+		//return $next($request);
 	}
 }

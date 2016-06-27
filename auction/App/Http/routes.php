@@ -51,6 +51,7 @@ Route::get('promise/buy/{id}', function($id) {
     $promise->build();
     return view('promise.buy', ['category' => $category],compact('promise'));
 });
+//Promise detailes
 Route::get('promise/details/{id}', function($id){
     $promise_details =  DB::table('promise')
         ->join('category','promise.category_id', '=', 'category.id')
@@ -103,7 +104,7 @@ Route::group(['middleware' => ['auth']], function(){
 
 });
 
-Route::group(['middleware' => ['admin']], function() { //group for admin
+Route::group(['middleware' => ['auth','admin']], function() { //group for admin
     //Route::get('/admin', 'AdminController@users'); //old route
     //admin defoult route
     Route::get('/admin', 'AdminController@getIndex'); //i add
