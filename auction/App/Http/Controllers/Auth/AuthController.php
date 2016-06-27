@@ -117,15 +117,7 @@ class AuthController extends Controller
 			if (Auth::attempt(/*$credentials*/$userdata_email/* + ['active' => 1]*/, $request->has('remember'))) { //avtive need to be 1 to check if user active account
 				if(Auth::attempt($userdata_email + ['active' => 1])) { //check if user active account
 					Session::flash('user-info', 'You have successfully sign in'); //send message to user via flash data
-					/*
-					$data = array(  //push user data into array
-						Auth::user()->id,
-						Auth::user()->f_name,
-						Auth::user()->l_name,
-						Auth::user()->email,
-						Auth::user()->access
-					);
-					*/
+
 					if (Session::has('user_auth_mess')) { //if session isset redirect if no push data to session
 						return $this->handleUserWasAuthenticated($request, $throttles);
 					} else {
@@ -138,15 +130,7 @@ class AuthController extends Controller
 			} elseif (Auth::attempt(/*$credentials*/$userdata_name /*+ ['active' => 1]*/, $request->has('remember'))) {
 				if(Auth::attempt($userdata_name + ['active' => 1])) { //check if user active account
 					Session::flash('user-info', 'You have successfully sign in'); //send message to user via flash data
-					/*
-					$data = array(  //push user data into array
-						Auth::user()->id,
-						Auth::user()->f_name,
-						Auth::user()->l_name,
-						Auth::user()->email,
-						Auth::user()->access
-					);
-					*/
+
 					if (Session::has('user_auth_mess')) { //if session isset redirect if no push data to session
 						return $this->handleUserWasAuthenticated($request, $throttles);
 					} else {

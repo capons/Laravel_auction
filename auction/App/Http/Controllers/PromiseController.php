@@ -353,11 +353,66 @@ class PromiseController extends Controller {
 			return redirect('promise/buy');
 		}
 	}
-	public function buyAuction(){
-		echo 'action';
+	public function buyAuction(Request $request){
+		$messages = [ //validation message
+			'au_promise_bid.required' => 'Bid is required',
+			'au_promise_bid.numeric' => 'Bid is numeric'
+		];
+		//$validator = Validator::make(Input::all(), $rules,$messages);
+		$validator = Validator::make($request->all(), [
+			'au_promise_id' => 'numeric',
+			'au_promise_bid' => 'numeric|required'
+		], $messages);
+		if ($validator->fails()) { //if true display error
+			return redirect('/promise/details/'.$request->au_promise_id)
+				->withInput()
+				->withErrors($validator); //set validation error name to display in error layout  views/common/errors.blade.php
+		} else {
+			$promise_id = Input::get('au_promise_id');
+			$promise_bid = round((float)Input::get('au_promise_bid'), 2); //promise price
+			$winner = DB::table('winners')
+				->where('promise_id','=',$promise_id)
+				->get();
+
+			if(count($winner) == 0){ //check first auction bid or no -> true if first bid
+				$promise = DB::table('promise')
+					->join('request', 'promise.id', '=', 'request.promise_id')
+					->select('promise.id','promise.price','promise.auction_end')
+					->where ('promise.id', '=' , $promise_id)
+					->first();
+				$end_time = strtotime($promise->auction_end); //auction end time
+				$promis_min_bid = $promise->price; //auction min price
+
+				if (time() > $end_time) { //check uaction time end or no
+					Session::flash('user-info', \Lang::get('message.error.auction_end_time')); //send message to user via flash data
+					return redirect('promise/buy');
+					die();
+				}
+				if($promise_bid < $promis_min_bid ){ // if auction bit < price die()
+					Session::flash('user-info', \Lang::get('message.error.auction_min_bid').' '.$promise->price); //send message to user via flash data
+					return redirect('promise/details/'.$promise_id);
+					die();
+				}
+				$winner = DB::table('winners')->insert(
+					['promise_id' => $promise_id, 'bid' => $promise_bid,'winner_id' => \Auth::user()->id]
+				);
+				if($winner){ //true if mysql return true
+					Session::flash('user-info', \Lang::get('message.promise.true_bid')); //send message to user via flash data
+					return redirect('promise/buy');
+				} else {
+					Session::flash('user-info', \Lang::get('message.error.error')); //send message to user via flash data
+					return redirect('promise/details/'.$promise_id);
+				}
+			} else {             //true if auction already have bids
+
+				//ПРОДОЛЖАЕМ РАБОТУ ЕСЛИ АУКЦИОН Уже имеет хоть 1 БИТ
 
 
-		
+
+				echo 'yes bid';
+			}
+
+		}
 	}
 
 	public function check()
