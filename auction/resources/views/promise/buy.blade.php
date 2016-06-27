@@ -25,16 +25,37 @@
 		<?php if(isset($promise)) { ?>
 		@if (count($promise) > 0)
 			@foreach($promise->data as $row)
+				<?php
+				if($row->auction_end == null) { ?> <!--if $row->auction_end == null => auction for sell (display) -->
 				<div class="col-lg-3">
 					<div class="col-xs-12">
 						<a href="<?php echo Config::get('app.url'); ?>/promise/details/{{ $row->id }}" class="thumbnail">
-							<img src="{!! asset('public') !!}{{$row->url}}<?php echo '/'; ?>{{$row->file_name}}" alt="...">
+						<img src="{!! asset('public') !!}{{$row->url}}<?php echo '/'; ?>{{$row->file_name}}" alt="...">
 						</a>
-						<h3>{{$row->title}}</h3>
+							<h3>{{$row->title}}</h3>
 						<h5>{{$row->description}}</h5>
 						<strong><?php echo '$'; ?>{{$row->price}}</strong>
 					</div>
 				</div>
+				<?php
+				} else {                          //if auction_end has data => promise for auction => if auction end => display false
+					$end_time = strtotime($row->auction_end); //auction end time
+					if (time() < $end_time) { 				  //check auction time end or no
+					?>
+					<div class="col-lg-3">
+						<div class="col-xs-12">
+							<a href="<?php echo Config::get('app.url'); ?>/promise/details/{{ $row->id }}" class="thumbnail">
+								<img src="{!! asset('public') !!}{{$row->url}}<?php echo '/'; ?>{{$row->file_name}}" alt="...">
+							</a>
+							<h3>{{$row->title}}</h3>
+							<h5>{{$row->description}}</h5>
+							<strong><?php echo '$'; ?>{{$row->price}}</strong>
+						</div>
+					</div>
+					<?php
+					}
+				}
+					?>
 			@endforeach
 		@endif
 		<?php } ?>

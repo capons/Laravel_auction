@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Library\UpBid;  //class to sort update winners bid data
 use App\model\DB\Category;
 use App\model\DB\File;
 use App\model\DB\Location;
@@ -18,23 +19,8 @@ use DB;
 
 class PromiseController extends Controller {
 
-	//protected $redirectTo = '/dashboard';
 	protected $redirectTo = '/promise/sell';
-/*
-	public function validation(Request $request){
-		$this->validate($request,
-			[
-				'title' => 'required|string',
-				'desc' => 'required|string',
-				'price' => 'required|numeric',
-				'terms' => 'required|string',
-				'shows' => '',
-				'time' => 'after:'.date('Y-m-d',time()),
-				//'file' => 'mimes:jpeg,bmp,png',
-				//'select_img' => 'array'
-			]);
-	}
-*/
+
 	public function validation(array $data){
 		$messages = [          //validation message
 			'prom_category.required' => 'Category is required',
@@ -69,12 +55,6 @@ class PromiseController extends Controller {
 		],$messages);
 	}
 
-	/*
-	public function getIndex(){
-
-		return view('promise.index');
-	}
-	*/
 
 	public function pageSell(){ //sell promise view
 		$category = Category::all();
@@ -100,7 +80,6 @@ class PromiseController extends Controller {
 					} else {
 						$file = \Request::file('prom_upload');
 						$path = \Config::get('app.setting.upload') . '\\' . \Auth::user()->id;
-						//$path = asset('public/upload/"'.\Auth::user()->id.'"/');
 						$name = time() . '.' . $file->getClientOriginalExtension();
 						if ($file->move($path, $name)) {
 							$file = File::create(['name' => $name, 'path' => $path, 'users_id' => \Auth::user()->id, 'url' => \Config::get('app.setting.url_upload') . '/' . \Auth::user()->id]);
@@ -123,8 +102,7 @@ class PromiseController extends Controller {
 					'category_id' => Input::get('prom_category'),
 					'location_id' => Input::get('prom_location'),
 				);
-			//echo Input::get('prom_terms');
-			//die();
+
 				$promise = Promise::create($data);
 				if (!$promise) {
 					$error[] = \Lang::get('message.error.save_db');
@@ -154,7 +132,7 @@ class PromiseController extends Controller {
 					}
 
 				}
-		} elseif(Input::get('sell_promise_type') == 1){ //if check promise auction
+		} elseif (Input::get('sell_promise_type') == 1){ //if check promise auction
 			$error = array();
 			if (!$request->input('select_image_from_our_database')) { // input to upload file from our database
 				$validator = $this->validation($request->all());
@@ -315,8 +293,7 @@ class PromiseController extends Controller {
 			->where('promise.active','=',1)
 			->where('promise.type','=',0)
 			->first();
-		if($promise->amount >= $amount){
-			//change amount of promise and create winner data
+		if($promise->amount >= $amount){  //change amount of promise and create winner data
 			DB::beginTransaction();
 			try {
 				DB::table('request')   //change amount
@@ -353,6 +330,7 @@ class PromiseController extends Controller {
 			return redirect('promise/buy');
 		}
 	}
+	//promise auction buy
 	public function buyAuction(Request $request){
 		$messages = [ //validation message
 			'au_promise_bid.required' => 'Bid is required',
@@ -370,33 +348,30 @@ class PromiseController extends Controller {
 		} else {
 			$promise_id = Input::get('au_promise_id');
 			$promise_bid = round((float)Input::get('au_promise_bid'), 2); //promise price
+			if($this->auctionCheckTime($promise_id) == false){            //check auction end time
+				Session::flash('user-info', \Lang::get('message.error.auction_end_time')); //send message to user via flash data
+				return redirect('promise/buy');
+				die();
+			}
 			$winner = DB::table('winners')
 				->where('promise_id','=',$promise_id)
 				->get();
-
 			if(count($winner) == 0){ //check first auction bid or no -> true if first bid
 				$promise = DB::table('promise')
 					->join('request', 'promise.id', '=', 'request.promise_id')
 					->select('promise.id','promise.price','promise.auction_end')
 					->where ('promise.id', '=' , $promise_id)
 					->first();
-				$end_time = strtotime($promise->auction_end); //auction end time
 				$promis_min_bid = $promise->price; //auction min price
-
-				if (time() > $end_time) { //check uaction time end or no
-					Session::flash('user-info', \Lang::get('message.error.auction_end_time')); //send message to user via flash data
-					return redirect('promise/buy');
-					die();
-				}
 				if($promise_bid < $promis_min_bid ){ // if auction bit < price die()
 					Session::flash('user-info', \Lang::get('message.error.auction_min_bid').' '.$promise->price); //send message to user via flash data
 					return redirect('promise/details/'.$promise_id);
 					die();
 				}
-				$winner = DB::table('winners')->insert(
+				$new_winner = DB::table('winners')->insert(
 					['promise_id' => $promise_id, 'bid' => $promise_bid,'winner_id' => \Auth::user()->id]
 				);
-				if($winner){ //true if mysql return true
+				if($new_winner){ //true if mysql return true
 					Session::flash('user-info', \Lang::get('message.promise.true_bid')); //send message to user via flash data
 					return redirect('promise/buy');
 				} else {
@@ -404,17 +379,84 @@ class PromiseController extends Controller {
 					return redirect('promise/details/'.$promise_id);
 				}
 			} else {             //true if auction already have bids
+				if($this->auctionCheckTime($promise_id) == false){ //check auction end time
+					Session::flash('user-info', \Lang::get('message.error.auction_end_time')); //send message to user via flash data
+					return redirect('promise/buy');
+					die();
+				}
+				$promise = Promise::find($promise_id);
+				if($promise->winners == count($winner)) {
+					$winners_data = json_decode(json_encode($winner), true); //winners array
+					$update_bid = new UpBid();
+					$up_bid = $update_bid->changeBid($winners_data);
+					if ($promise_bid < $up_bid['check_data']['user_old_bid']) { //if current bid < old_bid => true
+						Session::flash('user-info', \Lang::get('message.error.auction_min_bid') . ' ' . $up_bid['check_data']['user_old_bid']); //send message to user via flash data
+						return redirect('promise/details/' . $promise_id);
+						die();
+					}
+					$update_auction = DB::table('winners')
+						->where('winner_id', \Auth::user()->id)
+						->where('promise_id', $promise_id)
+						->where('bid', $up_bid['check_data']['user_old_bid'])
+						->update(['bid' => $promise_bid]);
+					if ($update_auction) {
+						Session::flash('user-info', \Lang::get('message.promise.true_bid')); //send message to user via flash data
+						return redirect('promise/buy');
+					} else {
+						Session::flash('user-info', \Lang::get('message.error.error')); //send message to user via flash data
+						return redirect('promise/buy');
+					}
+				} else {
+					//СРАБАТЫВАЕТ ЕСЛИ КОЛИЧЕСТВО ПОБЕДИТЕЛЕЙ НЕ ЗАПОЛНЕНО
+					// НЕ UPDATE и Insert дулать
 
-				//ПРОДОЛЖАЕМ РАБОТУ ЕСЛИ АУКЦИОН Уже имеет хоть 1 БИТ
 
 
 
-				echo 'yes bid';
+
+
+
+
+
+				}
+
+
+
+
+					/*
+					$last_bid = $winne;
+					if($promise_bid < $last_bid){
+						Session::flash('user-info', \Lang::get('message.error.auction_min_bid').' '.$last_bid); //send message to user via flash data
+						return redirect('promise/details/'.$promise_id);
+						die();
+					}
+					*/
+
+
+
+				//} else {
+				//	echo 'победители не набраны';
+				//}
+
+
+				//echo 'yes bid';
 			}
 
 		}
 	}
-
+	protected function auctionCheckTime($promise_id){
+		$promise = DB::table('promise')
+			->join('request', 'promise.id', '=', 'request.promise_id')
+			->select('promise.id','promise.price','promise.auction_end')
+			->where ('promise.id', '=' , $promise_id)
+			->first();
+		$end_time = strtotime($promise->auction_end); //auction end time
+		if (time() > $end_time) { //check auction time end or no
+			return false; //if auction end -> return false
+		} else {
+			return true;
+		}
+	}
 	public function check()
 	{
 		$msg = [];
