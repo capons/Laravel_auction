@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Library\UpBid;  //class to sort update winners bid data
+use App\Library\AuctionEnd;
 use App\model\DB\Category;
 use App\model\DB\File;
 use App\model\DB\Location;
@@ -18,8 +19,13 @@ use Session;
 use DB;
 
 class PromiseController extends Controller {
+	use AuctionEnd;
 
 	protected $redirectTo = '/promise/sell';
+
+	public function __construct(){
+		$this->auctionOver();
+	}
 
 	public function validation(array $data){
 		$messages = [          //validation message
@@ -363,7 +369,7 @@ class PromiseController extends Controller {
 					->where ('promise.id', '=' , $promise_id)
 					->first();
 				$promis_min_bid = $promise->price; //auction min price
-				if($promise_bid < $promis_min_bid ){ // if auction bit < price die()
+				if($promise_bid <= $promis_min_bid ){ // if auction bit < price die()
 					Session::flash('user-info', \Lang::get('message.error.auction_min_bid').' '.$promise->price); //send message to user via flash data
 					return redirect('promise/details/'.$promise_id);
 					die();
@@ -385,20 +391,23 @@ class PromiseController extends Controller {
 					die();
 				}
 				$promise = Promise::find($promise_id);
-				if($promise->winners == count($winner)) {
+				if($promise->winners == count($winner)) { //if auction winner count full
 					$winners_data = json_decode(json_encode($winner), true); //winners array
 					$update_bid = new UpBid();
 					$up_bid = $update_bid->changeBid($winners_data);
-					if ($promise_bid < $up_bid['check_data']['user_old_bid']) { //if current bid < old_bid => true
+
+
+					if ($promise_bid <= $up_bid['check_data']['user_old_bid']) { //if current bid < old_bid => true | $promise_bid 350 line
 						Session::flash('user-info', \Lang::get('message.error.auction_min_bid') . ' ' . $up_bid['check_data']['user_old_bid']); //send message to user via flash data
 						return redirect('promise/details/' . $promise_id);
 						die();
 					}
+
 					$update_auction = DB::table('winners')
-						->where('winner_id', \Auth::user()->id)
+						//->where('winner_id', \Auth::user()->id)
 						->where('promise_id', $promise_id)
-						->where('bid', $up_bid['check_data']['user_old_bid'])
-						->update(['bid' => $promise_bid]);
+						->where('bid', $up_bid['update_data']['user_old_bid'])
+						->update(['bid' => $promise_bid,'winner_id' => \Auth::user()->id]);
 					if ($update_auction) {
 						Session::flash('user-info', \Lang::get('message.promise.true_bid')); //send message to user via flash data
 						return redirect('promise/buy');
@@ -406,42 +415,29 @@ class PromiseController extends Controller {
 						Session::flash('user-info', \Lang::get('message.error.error')); //send message to user via flash data
 						return redirect('promise/buy');
 					}
-				} else {
-					//СРАБАТЫВАЕТ ЕСЛИ КОЛИЧЕСТВО ПОБЕДИТЕЛЕЙ НЕ ЗАПОЛНЕНО
-					// НЕ UPDATE и Insert дулать
+				} else {                             //if auction winner count not full
+					$winners_data = json_decode(json_encode($winner), true); //winners array
+					$update_bid = new UpBid();
+					$next_winner_bid = $update_bid->changeBid($winners_data);
 
-
-
-
-
-
-
-
-
-				}
-
-
-
-
-					/*
-					$last_bid = $winne;
-					if($promise_bid < $last_bid){
-						Session::flash('user-info', \Lang::get('message.error.auction_min_bid').' '.$last_bid); //send message to user via flash data
-						return redirect('promise/details/'.$promise_id);
+					if ($promise_bid <= $next_winner_bid['check_data']['user_old_bid']) { //if current bid < $next_winner_bid => true | $promise_bid -> 350 line
+						Session::flash('user-info', \Lang::get('message.error.auction_min_bid') . ' ' . $next_winner_bid['check_data']['user_old_bid']); //send message to user via flash data
+						return redirect('promise/details/' . $promise_id);
 						die();
 					}
-					*/
 
-
-
-				//} else {
-				//	echo 'победители не набраны';
-				//}
-
-
-				//echo 'yes bid';
+					$new_winner = DB::table('winners')->insert(
+						['promise_id' => $promise_id, 'bid' => $promise_bid,'winner_id' => \Auth::user()->id]
+					);
+					if($new_winner){ //true if mysql return true
+						Session::flash('user-info', \Lang::get('message.promise.true_bid'));
+						return redirect('promise/buy');
+					} else {
+						Session::flash('user-info', \Lang::get('message.error.error'));
+						return redirect('promise/details/'.$promise_id);
+					}
+				}
 			}
-
 		}
 	}
 	protected function auctionCheckTime($promise_id){
@@ -457,6 +453,7 @@ class PromiseController extends Controller {
 			return true;
 		}
 	}
+	/*
 	public function check()
 	{
 		$msg = [];
@@ -474,6 +471,7 @@ class PromiseController extends Controller {
 		}
 		return $msg;
 	}
+	*/
 
 	public function getPromiseByCategory(){
 		$cat = \Request::input('category');
