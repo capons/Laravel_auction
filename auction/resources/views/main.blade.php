@@ -37,7 +37,6 @@
 					<li <?php if(Route::getCurrentRoute()->getPath() == '/'){ echo 'class=active';} else { echo '';} ?>><a href="{{ url('/')}}">Main page<span class="sr-only"></span></a></li>
 					<li <?php if(Route::getCurrentRoute()->getPath() == 'account'){ echo 'class=active';} else { echo '';} ?>><a href="{{ url('/account')}}">User account<span class="sr-only"></span></a></li>
 
-					<li><a href="#">Link</a></li>
 					</ul>
 				<!--
 				<form class="navbar-form navbar-left" role="search">
@@ -81,23 +80,23 @@
 			<ul class="footer-menu">
 				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=active';} else { echo '';} ?>><a href="{{ url('/promise/buy')}}">Buy a Promise<span class="sr-only"></span></a></li>
 				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/sell'){ echo 'class=active';} else { echo '';} ?>><a href="{{ url('/promise/sell')}}">Sell a Promise<span class="sr-only"></span></a></li>
-				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/promise/buy')}}">Request a Promise<span class="sr-only"></span></a></li>
+				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/')}}">Request a Promise<span class="sr-only"></span></a></li>
 
 			</ul>
 		</div>
 		<div class="col-xs-4">
 			<ul class="footer-menu">
-				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/promise/buy')}}">Buy a Promise<span class="sr-only"></span></a></li>
-				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/sell'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/promise/sell')}}">Sell a Promise<span class="sr-only"></span></a></li>
-				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/promise/buy')}}">Request a Promise<span class="sr-only"></span></a></li>
+				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/')}}">About Us<span class="sr-only"></span></a></li>
+				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/sell'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/')}}">Promise Team<span class="sr-only"></span></a></li>
+				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/')}}">Get Involved<span class="sr-only"></span></a></li>
 
 			</ul>
 		</div>
 		<div class="col-xs-4">
 			<ul class="footer-menu">
-				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/promise/buy')}}">Buy a Promise<span class="sr-only"></span></a></li>
-				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/sell'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/promise/sell')}}">Sell a Promise<span class="sr-only"></span></a></li>
-				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/promise/buy')}}">Request a Promise<span class="sr-only"></span></a></li>
+				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/')}}">Suggestions?<span class="sr-only"></span></a></li>
+				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/sell'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/')}}">Support<span class="sr-only"></span></a></li>
+				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/')}}">FAQ’s<span class="sr-only"></span></a></li>
 
 			</ul>
 		</div>

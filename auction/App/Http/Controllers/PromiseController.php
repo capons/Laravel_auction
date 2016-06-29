@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Library\UpBid;  //class to sort update winners bid data
-use App\Library\AuctionEnd;
+//use App\Library\AuctionEnd;
 use App\model\DB\Category;
 use App\model\DB\File;
 use App\model\DB\Location;
@@ -19,12 +19,12 @@ use Session;
 use DB;
 
 class PromiseController extends Controller {
-	use AuctionEnd;
+	//use AuctionEnd;
 
 	protected $redirectTo = '/promise/sell';
 
 	public function __construct(){
-		$this->auctionOver();
+		//$this->auctionOver();
 	}
 
 	public function validation(array $data){
@@ -204,50 +204,12 @@ class PromiseController extends Controller {
 				if (!$p_request) {
 					$error[] = \Lang::get('message.error.save_db');
 				} else {
-					/*
-					$str = '';
-					for($i = 0; $i < $number_of_winners; $i++) {
-						$str .= '('.$promise->id.')'.',';
-					}
-					$str = substr($str, 0, -1); // remove last character from string
-					$w_request = DB::insert('insert into winners (promise_id) values '.$str.' ');
-					if (!$w_request) {
-						$error[] = \Lang::get('message.error.save_db');
-					}
-					*/
 					Session::flash('user-info', 'Promise added successfully'); //send message to user via flash data
 					return redirect($this->redirectTo);
 				}
-
 			}
 		}
 	}
-
-	/* query to display category promise
-	public function getData(Request $request){
-		$value = $request->input('value');
-		if($request->input('type') == 1){
-			$req = Promise::where('active','=', 1);
-			if($value){
-				$req = $req->where('category_id','=',$value);
-			}
-			$req = $req->join('file', 'file_id', '=', 'file.id')->select('file.url','file.name','title','price','desc','promise.id')->get();
-			return ['data' => $req];
-		}
-	}
-	*/
-	/*
-	public function addRequest(Request $request){
-		$error = '';
-		$this->validation($request);
-		$data = array_merge($request->all(),['type' => 2]);
-		$promise = Promise::create($data);
-		if(!$promise){
-			$error = \Lang::get('message.error.save_db');
-		}
-		return ['error' => $error];
-	}
-	*/
 	//promise buy view
 	public function promiseBuy(){
 
@@ -273,14 +235,10 @@ class PromiseController extends Controller {
 			->where('request.amount','<>',0) //not equal 0
 		);
 		//$promise->addOrderBy(['title','id']);
-		$promise->paginate(2);
+		$promise->paginate(5);
 		//$promise->build();
 		$promise->build();
-
-
-
 		return view('promise.buy',['category' => $category],compact('promise'));
-
 	}
 	//Promise buy
 	public function buy(Request $request){
@@ -328,6 +286,10 @@ class PromiseController extends Controller {
 				throw $e;
 			}
 			DB::commit();
+
+
+			//НАДА ОТПРАВИТЬ ПИСЬМО ПОЛЬЗОВАТЕЛЮ О ТОМ ЧТО ОН КУПИЛ ПРОМИС
+
 
 			Session::flash('user-info', 'Thank you for your purchase, your order number'.' '.$winner); //send message to user via flash data
 			return redirect('promise/buy');
@@ -426,7 +388,24 @@ class PromiseController extends Controller {
 						die();
 					}
 
-					$new_winner = DB::table('winners')->insert(
+					$duplicate_winners = DB::table('winners')
+						->where ('promise_id', '=' , $promise_id)
+						->where('winner_id', '=' , \Auth::user()->id)
+						->get();
+					if(count($duplicate_winners) !== 0) { //true if user has already put a bid
+						$update_auction = DB::table('winners')
+							->where('promise_id', $promise_id)
+							->where('bid', $next_winner_bid['update_data']['user_old_bid'])
+							->update(['bid' => $promise_bid,'winner_id' => \Auth::user()->id]);
+						if ($update_auction) {
+							Session::flash('user-info', \Lang::get('message.promise.true_bid')); //send message to user via flash data
+							return redirect('promise/buy');
+						} else {
+							Session::flash('user-info', \Lang::get('message.error.error')); //send message to user via flash data
+							return redirect('promise/buy');
+						}
+					}
+					$new_winner = DB::table('winners')->insert(  //save new auction winner
 						['promise_id' => $promise_id, 'bid' => $promise_bid,'winner_id' => \Auth::user()->id]
 					);
 					if($new_winner){ //true if mysql return true

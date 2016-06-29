@@ -207,7 +207,7 @@ class AuthController extends Controller
 		//$find_user = User::where('id',$id)->where('hash',$hash)->get(); //find user with correct id and hash
 		$find_user = User::where('id', $id)->where('hash',$hash)->get();
 		if(!$find_user->isEmpty()){ //if result true
-			$values=array('active'=>1,'hash'=>bcrypt(str_random(40))); //update data -> new hash to confirm that we active user acount and link work only once
+			$values=array('active'=>1,'access'=>1,'hash'=>bcrypt(str_random(40))); //update data -> new hash to confirm that we active user acount and link work only once
 			User::where('id',$id)->where('hash',$hash)->update($values);
 			$user = User::findOrFail($id);
 				Mail::send('mail.index', ['view_variable' => 'Your account is active'], function ($m) use ($user) { //send mail to user -> account is active
