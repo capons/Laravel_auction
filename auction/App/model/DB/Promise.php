@@ -9,6 +9,7 @@ class Promise extends Model {
 
 	protected $fillable = array('title','description','price','terms','file_id','category_id','type','featured','auction_end','winners','shows','sold','location_id');
 	public $table = 'promise';
+	public $timestamps = true;
 	/*
 	function users(){
 		$this->belongsTo('App\User');

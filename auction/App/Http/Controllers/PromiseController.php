@@ -17,6 +17,7 @@ use Validator;
 use Input;
 use Session;
 use DB;
+use Illuminate\Support\Facades\Mail;
 
 class PromiseController extends Controller {
 	//use AuctionEnd;
@@ -234,8 +235,8 @@ class PromiseController extends Controller {
 			->where('promise.active','=',1)
 			->where('request.amount','<>',0) //not equal 0
 		);
-		//$promise->addOrderBy(['title','id']);
-		$promise->paginate(5);
+		$promise->orderBy('id','desc');
+		$promise->paginate(7);
 		//$promise->build();
 		$promise->build();
 		return view('promise.buy',['category' => $category],compact('promise'));
@@ -252,16 +253,21 @@ class PromiseController extends Controller {
 		$price = $request->input('promise_price');
 		$promise = DB::table('promise')
 			->join('request', 'promise.id', '=', 'request.promise_id')
-			->select('promise.id','promise.price','promise.type','promise.active','request.amount')
+			->select('promise.id','promise.price','promise.type','promise.active','promise.sold','request.amount')
 			->where('promise.id','=',$request->input('promise_id'))
 			->where('promise.active','=',1)
 			->where('promise.type','=',0)
+			->where('promise.sold','=',null)
 			->first();
 		if($promise->amount >= $amount){  //change amount of promise and create winner data
-			DB::beginTransaction();
+
+
+			//Paiment API INSERT HERE
+
+
+			DB::beginTransaction();      //update table request and promise by Transaction
 			try {
-				DB::table('request')   //change amount
-					->where('promise_id', $promise_id)
+				Requeste::where('promise_id', $promise_id)
 					->update(['amount' => $promise->amount - $amount]);
 			} catch (ValidationException $e) {
 				DB::rollback();
@@ -273,7 +279,7 @@ class PromiseController extends Controller {
 				throw $e;
 			}
 			try {
-				$winner = DB::table('winners')->insertGetId( //save buyer information
+				$winner = DB::table('winners')->insertGetId( //save buyer information and return last insert id
 					['promise_id' => $promise_id, 'bid' => $price, 'winner_id' => \Auth::user()->id]
 				);
 			} catch (ValidationException $e) {
@@ -286,15 +292,25 @@ class PromiseController extends Controller {
 				throw $e;
 			}
 			DB::commit();
-
-
-			//НАДА ОТПРАВИТЬ ПИСЬМО ПОЛЬЗОВАТЕЛЮ О ТОМ ЧТО ОН КУПИЛ ПРОМИС
-
-
-			Session::flash('user-info', 'Thank you for your purchase, your order number'.' '.$winner); //send message to user via flash data
+			if($promise->amount - $amount == 0){ //if promise amount == 0 ->  promise  sold => change promise->sold to 1 (means that promise sold)!
+				Promise::where('id', $promise_id)
+					->update(['sold' => 1]);
+			}
+			//send mail to the user who bought Promise
+			$data = array( //send variable to mail view
+				'name'=> \Auth::user()->f_name,
+				'email'=>\Auth::user()->email,
+				'c_message'=> \Lang::get('message.user.successful_purchase').' '.$winner
+			);
+			Mail::send('mail.promise_buy',$data,function ($message) {
+				$message->from(env('admin_email'), 'Auction');
+				$message->to(\Auth::user()->email)->cc(\Auth::user()->email);
+				$message->subject(\Lang::get('message.promise.buy'));
+			});
+			Session::flash('user-info', \Lang::get('message.user.successful_purchase').' '.$winner); //send message to user via flash data
 			return redirect('promise/buy');
-		} else {
-			Session::flash('user-info', 'Not enough product'); //send message to user via flash data
+		} else { //if Promise amount < request amount
+			Session::flash('user-info', \Lang::get('message.promise.quantity')); //send message to user via flash data
 			return redirect('promise/buy');
 		}
 	}
@@ -304,7 +320,6 @@ class PromiseController extends Controller {
 			'au_promise_bid.required' => 'Bid is required',
 			'au_promise_bid.numeric' => 'Bid is numeric'
 		];
-		//$validator = Validator::make(Input::all(), $rules,$messages);
 		$validator = Validator::make($request->all(), [
 			'au_promise_id' => 'numeric',
 			'au_promise_bid' => 'numeric|required'

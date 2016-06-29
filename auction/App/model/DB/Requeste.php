@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Requeste extends Model {
 
-	//public $timestamps = false;
+	
 	public $table = 'request';
+	public $timestamps = true;
 	protected $fillable = array('promise_id','amount','users_id');
 	/*
 	function category(){
