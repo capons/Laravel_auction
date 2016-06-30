@@ -9,6 +9,8 @@
 
 @section('content')
 
+
+
     <a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a><br>
     <a href="{{ action('Auth\AuthController@getRegister') }}">Register</a><br>
     <?php
