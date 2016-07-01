@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Mail;
+use Mail;
 
 
 class Kernel extends ConsoleKernel
@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\AuctionEnd::class,
+        \App\Console\Commands\SendEmails::class,
     ];
 
 
@@ -30,7 +31,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //$schedule->command('auction:end')->cron('*/1 * * * *');
-        $schedule->command('auction:end')->everyFiveMinutes();
+       // $schedule->command('auction:end')->everyFiveMinutes();
+       $schedule->command('email:send')->everyMinute();
+
+
+
 
     }
 }
