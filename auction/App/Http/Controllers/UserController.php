@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use app\model\DB;
 use App\model\DB\File;
 use App\User;
-use Session; //load session class
+use Session;
 use App\Library\UpBid;
+use App\Library\AuctionEnd;
 
 class UserController extends Controller {
+	use AuctionEnd; //auction end trait
+	
 
 	protected $redirectTo = 'user/index';
 
@@ -20,23 +23,12 @@ class UserController extends Controller {
 	 */
 	public function __construct()
 	{
-		//$this->middleware('guest', ['except' => 'getLogout']);
+		AuctionEnd::auctionOver(); //auction close if end auction time
 	}
 
 	public function getIndex(){  //main view
 
-		//var_dump(User::find(4)->toArray());
-		/*
-		$test = [
-			'user 1' => '20',
-			'user 2' => '15.5',
-			'user 3' => '15'
-		];
-		$tt = new UpBid();
-		echo '<pre>';
-		print_r($tt->test($test));
-		echo '</pre>';
-		*/
+		
 		return view('user.index');
 	}
 

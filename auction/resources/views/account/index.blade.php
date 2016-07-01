@@ -7,9 +7,7 @@
 
 @section('content')
     <script type="text/javascript" src="<?php echo base_path(); ?>/public/js/promise/buypromise.js"></script>
-    <?php
-    echo 'id пользователя '.\Illuminate\Support\Facades\Auth::user()->id.'<br>';
-    ?>
+
     <p style="text-align: center">ГЛАВНАЯ СТРАНИЦА ПОЛЬЗОВАТЕЛЯ</p>
 
     <div style="height: 300px" class="container-fluid">

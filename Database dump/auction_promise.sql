@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2016 at 03:41 PM
+-- Generation Time: Jul 01, 2016 at 03:02 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.2
 
@@ -78,7 +78,10 @@ INSERT INTO `file` (`id`, `name`, `url`, `path`, `type`, `users_id`) VALUES
 (105, '1467205205.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
 (106, '1467205340.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
 (107, '1467205355.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(108, '1467206073.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114);
+(108, '1467206073.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
+(109, '1467358817.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
+(110, '1467361535.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
+(111, '1467372079.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114);
 
 -- --------------------------------------------------------
 
@@ -370,16 +373,8 @@ CREATE TABLE `promise` (
 --
 
 INSERT INTO `promise` (`id`, `title`, `sub_title`, `description`, `price`, `terms`, `type`, `time`, `featured`, `file_id`, `created_at`, `updated_at`, `auction_end`, `category_id`, `winners`, `shows`, `active`, `sold`, `location_id`, `winner_id`) VALUES
-(29, 'Auction', NULL, 'Detailes', 50, 'Terms', 1, NULL, NULL, 99, '2016-06-29 06:02:02', '2016-06-29 06:02:02', '2016-07-01 09:02:02', 3, 3, NULL, 1, NULL, 6, NULL),
-(30, 'For sell', NULL, 'sdfsdfsdf', 50, 'sdfsdffsdf', 0, NULL, NULL, 100, '2016-06-29 08:25:08', '2016-06-29 08:27:40', NULL, 3, 1, NULL, 1, NULL, 6, NULL),
-(31, 'testtest', NULL, 'sdsdfdf', 50, 'sdfdsfsdf', 0, NULL, NULL, 101, '2016-06-29 08:32:35', '2016-06-29 08:32:35', NULL, 1, 1, NULL, 1, NULL, 15, NULL),
-(32, 'sdfdsfsdf', NULL, 'sdfsdfsdf', 50, 'dsfdsfdsfs', 0, NULL, NULL, 102, '2016-06-29 08:32:49', '2016-06-29 08:32:49', NULL, 3, 1, NULL, 1, NULL, 7, NULL),
-(33, 'sdfdsfsdf', NULL, 'ssdfsdfsdfsdfsdf', 50, 'dsfsdfsdf', 0, NULL, NULL, 103, '2016-06-29 08:33:03', '2016-06-29 08:33:03', NULL, 1, 1, NULL, 1, NULL, 6, NULL),
-(34, 'sdfsdfsdf', NULL, 'sdfsdfsdfdsf', 50, 'sdfsdfsdf', 0, NULL, NULL, 104, '2016-06-29 08:33:18', '2016-06-29 08:33:18', NULL, 1, 1, NULL, 1, NULL, 11, NULL),
-(35, 'Sell sdfsdfsdf', NULL, 'dfgdfgdfg', 50, 'fdgdfgfdgfdg', 0, NULL, NULL, 105, '2016-06-29 13:00:05', '2016-06-29 13:00:05', NULL, 3, 1, NULL, 1, NULL, 9, NULL),
-(36, 'sdfdsfsdf', NULL, 'sdfsdfdsf', 50, 'dsfsdfsdf', 0, NULL, NULL, 106, '2016-06-29 13:02:20', '2016-06-29 13:02:20', NULL, 3, 1, NULL, 1, NULL, 11, NULL),
-(37, 'fdgdg', NULL, 'fdgdfgfdg', 50, 'dfgdfgdf', 0, NULL, NULL, 107, '2016-06-29 13:02:35', '2016-06-29 13:02:35', NULL, 3, 1, NULL, 1, NULL, 10, NULL),
-(38, 'Last sell', NULL, 'fdgdfgdfg', 50, 'dfgdfgdfg', 0, NULL, NULL, 108, '2016-06-29 13:14:33', '2016-06-29 13:36:28', NULL, 1, 1, NULL, 1, 1, 6, NULL);
+(40, 'Auction', NULL, 'sdfdsfsd', 50, 'sdfsdfdf', 1, NULL, NULL, 110, '2016-07-01 08:25:35', '2016-07-01 08:25:35', '2016-07-01 11:25:35', 3, 2, NULL, 1, NULL, 5, NULL),
+(41, 'Buy', NULL, 'sdfsdfsf', 50, 'sdfsdfsdf', 0, NULL, NULL, 111, '2016-07-01 11:21:19', '2016-07-01 11:21:19', NULL, 3, 1, NULL, 1, NULL, 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -401,16 +396,8 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`id`, `promise_id`, `amount`, `users_id`, `created_at`, `updated_at`) VALUES
-(27, 29, 1, 114, '2016-06-29 06:02:02', '2016-06-29 06:02:02'),
-(28, 30, 5, 114, '2016-06-29 08:25:08', '2016-06-29 08:25:08'),
-(29, 31, 1, 114, '2016-06-29 08:32:35', '2016-06-29 08:32:35'),
-(30, 32, 1, 114, '2016-06-29 08:32:49', '2016-06-29 08:32:49'),
-(31, 33, 1, 114, '2016-06-29 08:33:03', '2016-06-29 08:33:03'),
-(32, 34, 1, 114, '2016-06-29 08:33:18', '2016-06-29 08:33:18'),
-(33, 35, 1, 114, '2016-06-29 13:00:05', '2016-06-29 13:00:05'),
-(34, 36, 1, 114, '2016-06-29 13:02:20', '2016-06-29 13:02:20'),
-(35, 37, 1, 114, '2016-06-29 13:02:35', '2016-06-29 13:02:35'),
-(36, 38, 0, 114, '2016-06-29 13:14:33', '2016-06-29 13:36:28');
+(38, 40, 1, 114, '2016-07-01 08:25:35', '2016-07-01 08:25:35'),
+(39, 41, 1, 114, '2016-07-01 11:21:19', '2016-07-01 12:51:17');
 
 -- --------------------------------------------------------
 
@@ -477,6 +464,7 @@ CREATE TABLE `winners` (
   `promise_id` int(11) NOT NULL,
   `bid` int(11) NOT NULL,
   `winner_id` int(11) NOT NULL,
+  `if_email` tinyint(2) DEFAULT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -484,8 +472,12 @@ CREATE TABLE `winners` (
 -- Dumping data for table `winners`
 --
 
-INSERT INTO `winners` (`id`, `promise_id`, `bid`, `winner_id`, `time`) VALUES
-(51, 38, 50, 114, '2016-06-29 13:36:28');
+INSERT INTO `winners` (`id`, `promise_id`, `bid`, `winner_id`, `if_email`, `time`) VALUES
+(56, 40, 70, 114, 1, '2016-07-01 10:42:06'),
+(58, 40, 90, 118, 1, '2016-07-01 10:49:07'),
+(60, 41, 50, 114, 1, '2016-07-01 11:24:03'),
+(61, 41, 50, 114, 1, '2016-07-01 12:49:51'),
+(62, 41, 50, 114, 1, '2016-07-01 12:51:17');
 
 --
 -- Indexes for dumped tables
@@ -551,7 +543,9 @@ ALTER TABLE `users`
 -- Indexes for table `winners`
 --
 ALTER TABLE `winners`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `promise_id` (`promise_id`),
+  ADD KEY `winner_id` (`winner_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -566,7 +560,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `file`
 --
 ALTER TABLE `file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 --
 -- AUTO_INCREMENT for table `location`
 --
@@ -576,12 +570,12 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `promise`
 --
 ALTER TABLE `promise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `setting`
 --
@@ -601,7 +595,18 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `winners`
 --
 ALTER TABLE `winners`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `winners`
+--
+ALTER TABLE `winners`
+  ADD CONSTRAINT `winners_ibfk_3` FOREIGN KEY (`promise_id`) REFERENCES `promise` (`id`),
+  ADD CONSTRAINT `winners_ibfk_4` FOREIGN KEY (`winner_id`) REFERENCES `users` (`id`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

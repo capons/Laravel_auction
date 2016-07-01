@@ -280,7 +280,7 @@ class PromiseController extends Controller {
 			}
 			try {
 				$winner = DB::table('winners')->insertGetId( //save buyer information and return last insert id
-					['promise_id' => $promise_id, 'bid' => $price, 'winner_id' => \Auth::user()->id]
+					['promise_id' => $promise_id, 'bid' => $price, 'winner_id' => \Auth::user()->id,'if_email' => 1]
 				);
 			} catch (ValidationException $e) {
 				DB::rollback();
@@ -351,9 +351,13 @@ class PromiseController extends Controller {
 					return redirect('promise/details/'.$promise_id);
 					die();
 				}
+				DB::statement('SET FOREIGN_KEY_CHECKS=0;'); //foreign_key check off
+
 				$new_winner = DB::table('winners')->insert(
 					['promise_id' => $promise_id, 'bid' => $promise_bid,'winner_id' => \Auth::user()->id]
 				);
+
+				DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //foreign_key check on
 				if($new_winner){ //true if mysql return true
 					Session::flash('user-info', \Lang::get('message.promise.true_bid')); //send message to user via flash data
 					return redirect('promise/buy');
@@ -408,10 +412,12 @@ class PromiseController extends Controller {
 						->where('winner_id', '=' , \Auth::user()->id)
 						->get();
 					if(count($duplicate_winners) !== 0) { //true if user has already put a bid
+						DB::statement('SET FOREIGN_KEY_CHECKS=0;'); //foreign_key check off
 						$update_auction = DB::table('winners')
 							->where('promise_id', $promise_id)
 							->where('bid', $next_winner_bid['update_data']['user_old_bid'])
 							->update(['bid' => $promise_bid,'winner_id' => \Auth::user()->id]);
+						DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //foreign_key check on
 						if ($update_auction) {
 							Session::flash('user-info', \Lang::get('message.promise.true_bid')); //send message to user via flash data
 							return redirect('promise/buy');
@@ -476,9 +482,6 @@ class PromiseController extends Controller {
 		$promise = $promise->join('file','promise.file_id','=','file.id')->get();
 		return $promise->toArray();
 	}
-
-
-
 	public function pageRequest(){
 		$category = Category::all();
 		return view('promise.request', ['category' => $category]);
