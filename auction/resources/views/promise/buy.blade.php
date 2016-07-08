@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<?php
-				} else {                          //if auction_end has data => promise for auction => if auction end => display false
+				} else {     //display promise for sell  and check if auction end time "end" -> do not display them!!! //if auction_end has data => promise for auction => if auction end => display false
 					$end_time = strtotime($row->auction_end); //auction end time
 					if (time() < $end_time) { 				  //check auction time end or no
 					?>

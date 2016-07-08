@@ -10,6 +10,7 @@ use App\model\DB\File;
 use App\model\DB\Location;
 use App\model\DB\Promise;
 use App\model\DB\Requeste;
+use App\model\DB\Search;
 use App\model\DB\Winner;
 use App\User;
 use Illuminate\Http\Request;
@@ -472,7 +473,7 @@ class PromiseController extends Controller {
 		return $msg;
 	}
 	*/
-
+	/*
 	public function getPromiseByCategory(){
 		$cat = \Request::input('category');
 		$promise = Promise::select('file.name','file.url','promise.*');
@@ -482,9 +483,78 @@ class PromiseController extends Controller {
 		$promise = $promise->join('file','promise.file_id','=','file.id')->get();
 		return $promise->toArray();
 	}
-	public function pageRequest(){
+	*/
+	
+	
+	public function pageRequest(Request $request){ // default request promise method
 		$category = Category::all();
-		return view('promise.request', ['category' => $category]);
+		$location = Location::all();
+		if(empty($request->all())){ //if no request
+			return view('promise.request', ['category' => $category,'location' => $location]);
+			} else {
+				//echo '<pre>';
+				//print_r($request->all());
+				//echo '</pre>';
+
+			$promise =	DB::table('promise')
+						->join('category','promise.category_id', '=', 'category.id')
+						->join('file','promise.file_id', '=', 'file.id')
+						->join('request', 'promise.id', '=', 'request.promise_id')
+						//->join('users', 'users.id', '=', 'request.users_id')
+						->select('promise.id','promise.title','promise.description','promise.price','promise.type','promise.auction_end','promise.active','category.name as category_name','file.path as file_path','file.url','file.name as file_name','request.amount')
+						->where('promise.active','=',1)
+						->where('request.amount','<>',0) //not equal 0
+						->where('promise.category_id','=',$request->input('request_cat'))
+						->where('promise.description','like','%'.$request->input('request_desc').'%')
+						->get();
+
+			if($promise == true){ //if query return true display matches
+				return view('promise.request', ['category' => $category,'location' => $location,'promise' => $promise]);
+				die();
+			} else { //if query return false -> dont display result
+				//echo 'Не нашло';
+				$user_promise_email = DB::table('promise')
+									->join('category','promise.category_id', '=', 'category.id')
+									->join('file','promise.file_id', '=', 'file.id')
+									->join('request', 'promise.id', '=', 'request.promise_id')
+									->join('users', 'users.id', '=', 'request.users_id')
+									->select('promise.id','promise.title','promise.description','promise.price','promise.type','promise.auction_end','promise.active','category.name as category_name','file.path as file_path','file.url','file.name as file_name','users.email','users.f_name')
+									->where('promise.active','=',1)
+									->where('request.amount','<>',0) //not equal 0
+									->where('promise.category_id','=',$request->input('request_cat'))
+									//->where('promise.description','like','%'.$request->input('request_desc').'%')
+									->get();
+				//$this->requestEmail();
+				$user_promise_email = json_decode(json_encode($user_promise_email), true); //object convert to array
+				$this->requestEmail($user_promise_email,$request->input('request_desc'));  //send mail to all users that have request in search category
+
+
+				DB::statement('SET FOREIGN_KEY_CHECKS=0;'); //foreign_key check off
+				$request_promise = Search::create(['users_id' => \Auth::user()->id,'price' => $request->input('request_price'),'descript' => $request->input('request_desc'),'expires' => $request->input('request_end')]);
+				//НАДА ВЕРНУТЬ ID сохраненной записи что-бы значит что с ней делать дальше // по id потом будем находить этот запрос
+				DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //foreign_key check on
+
+
+				Session::flash('user-info', \Lang::get('message.promise.request_negative'));
+				return redirect('promise/request');
+				die();
+			}
+		}
+	}
+
+	public function requestEmail(array $data, $desc){ //letters are sent to all users who have promise in the category in which search promise
+		if(is_array($data)){
+			foreach ($data as $row) {
+				Mail::send('mail.request', ['desc' => $desc], function ($m) use ($row) {
+					$m->from('hello@app.com', 'Your Application');
+					$m->to($row['email'],$row['f_name'] )->subject('Create new Promise!!!'); //send to email link to activate account
+				});
+			}
+		}
+	}
+
+	public function addRequest(Request $request){
+
 	}
 
 	public function pageBuy(){

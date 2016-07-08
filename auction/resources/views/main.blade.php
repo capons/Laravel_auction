@@ -80,7 +80,7 @@
 			<ul class="footer-menu">
 				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=active';} else { echo '';} ?>><a href="{{ url('/promise/buy')}}">Buy a Promise<span class="sr-only"></span></a></li>
 				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/sell'){ echo 'class=active';} else { echo '';} ?>><a href="{{ url('/promise/sell')}}">Sell a Promise<span class="sr-only"></span></a></li>
-				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/buy'){ echo 'class=';} else { echo '';} ?>><a href="{{ url('/')}}">Request a Promise<span class="sr-only"></span></a></li>
+				<li <?php if(Route::getCurrentRoute()->getPath() == 'promise/request'){ echo 'class=active';} else { echo '';} ?>><a href="{{ url('/promise/request')}}">Request a Promise<span class="sr-only"></span></a></li>
 
 			</ul>
 		</div>

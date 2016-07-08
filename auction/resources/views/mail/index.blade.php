@@ -8,12 +8,13 @@
 
 
 
-
 <?php
 if(isset($link)){
 ?>
+@if(count($link) > 0)
     <p>{{$link}}</p>
-    <?php
+@endif
+<?php
 }
 ?>
 </body>

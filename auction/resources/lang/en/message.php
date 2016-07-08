@@ -12,7 +12,8 @@ return [
 		'deadline' => 'Time of auction ended',
 		'true_bid' => 'The bid was successful',
 		'buy' => 'You successfully bought the promise',
-		'quantity' => 'Promise is not enough quantity'
+		'quantity' => 'Promise is not enough quantity',
+		'request_negative' => 'Not found promise - we have informed users about your search'
 	],
 	'user' => [
 		'successful_purchase' => 'Thank you for your purchase, your order number'

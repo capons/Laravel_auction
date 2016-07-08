@@ -69,9 +69,9 @@ Route::get('promise/details/{id}', function($id){
 
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('/promise/index', 'PromiseController@getIndex');
-    Route::get('/promise/validation', 'PromiseController@validation');
-    Route::get('/promise/request', 'PromiseController@pageRequest');
+   // Route::get('/promise/index', 'PromiseController@getIndex');
+   // Route::get('/promise/validation', 'PromiseController@validation');
+
     //Route::get('/promise/buy', 'PromiseController@pageBuy');
     Route::get('/promise/profile/{id}', 'PromiseController@pageProfile');
     Route::get('/promise/buypromise', 'PromiseController@pageBuypromise');
@@ -95,6 +95,12 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/promise/sell', 'PromiseController@pageSell'); //sell promise
     Route::post('/promise/sell', 'PromiseController@add'); //sell promise
+    
+    //Route::get('/promise/request','PromiseController')//Promise request
+    Route::get('/promise/request', 'PromiseController@pageRequest');
+    Route::post('/promise/request', 'PromiseController@pageRequest');
+    //Route::post('/promise/request', 'PromiseController@addRequest');
+
 
     Route::get('/home','UserController@getIndex');
 
