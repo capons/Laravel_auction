@@ -253,13 +253,17 @@
 <!--Admin panel js and css -->
 
 
-
+<!--
 <script src="{!! asset('/AdminLTE/bootstrap/js/bootstrap.min.js') !!}"></script>
 <script src="{!! asset('/AdminLTE/dist/js/app.js') !!}" type="text/javascript"></script>
+-->
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-	$.widget.bridge('uibutton', $.ui.button);
+	//$.widget.bridge('uibutton', $.ui.button);
 </script>
+
+
+
 <!--admin panel js -->
 <script type="text/javascript" src="{!! asset('public/AdminLTE/bootstrap/js/bootstrap.min.js') !!}"></script>
 <!-- Morris.js charts -->
