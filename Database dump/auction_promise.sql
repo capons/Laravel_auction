@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2016 at 03:02 PM
+-- Generation Time: Jul 11, 2016 at 02:26 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.2
 
@@ -61,27 +61,10 @@ CREATE TABLE `file` (
 --
 
 INSERT INTO `file` (`id`, `name`, `url`, `path`, `type`, `users_id`) VALUES
-(91, '1466686449.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(92, '1466688296.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(93, '1466757996.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(94, '1466766501.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(95, '1466766721.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(96, '1466766786.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(97, '1466766919.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(98, '1466770001.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(99, '1467180122.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\LARAVEL-PROJECT\\auction\\public\\upload\\114', NULL, 114),
-(100, '1467188708.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(101, '1467189155.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(102, '1467189169.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(103, '1467189183.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(104, '1467189198.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(105, '1467205205.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(106, '1467205340.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(107, '1467205355.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(108, '1467206073.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(109, '1467358817.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(110, '1467361535.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114),
-(111, '1467372079.png', '/upload/114', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\114', NULL, 114);
+(112, '1467962355.png', '/upload/120', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\120', NULL, 120),
+(113, '1467969345.png', '/upload/120', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\120', NULL, 120),
+(114, '1467969358.png', '/upload/120', 'C:\\xampp\\htdocs\\bogdan\\Laravel_auction\\auction\\public\\upload\\120', NULL, 120),
+(115, '1468232403.png', '/upload/120', 'C:\\xampp\\htdocs\\bogdan\\laravel-final\\public\\upload\\120', NULL, 120);
 
 -- --------------------------------------------------------
 
@@ -356,7 +339,7 @@ CREATE TABLE `promise` (
   `time` timestamp NULL DEFAULT NULL,
   `featured` tinyint(4) DEFAULT NULL,
   `file_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `auction_end` datetime DEFAULT NULL,
   `category_id` int(11) NOT NULL,
@@ -373,8 +356,12 @@ CREATE TABLE `promise` (
 --
 
 INSERT INTO `promise` (`id`, `title`, `sub_title`, `description`, `price`, `terms`, `type`, `time`, `featured`, `file_id`, `created_at`, `updated_at`, `auction_end`, `category_id`, `winners`, `shows`, `active`, `sold`, `location_id`, `winner_id`) VALUES
-(40, 'Auction', NULL, 'sdfdsfsd', 50, 'sdfsdfdf', 1, NULL, NULL, 110, '2016-07-01 08:25:35', '2016-07-01 08:25:35', '2016-07-01 11:25:35', 3, 2, NULL, 1, NULL, 5, NULL),
-(41, 'Buy', NULL, 'sdfsdfsf', 50, 'sdfsdfsdf', 0, NULL, NULL, 111, '2016-07-01 11:21:19', '2016-07-01 11:21:19', NULL, 3, 1, NULL, 1, NULL, 7, NULL);
+(42, 'title', NULL, 'detaile', 50, 'sdfsdf', 0, NULL, NULL, 112, '2016-07-08 07:19:15', '2016-07-08 07:20:50', NULL, 3, 1, NULL, 1, 1, 7, NULL),
+(43, 'testtest', NULL, 'sdfsdfsdf', 50, 'sdfsdfsdf', 0, NULL, NULL, 113, '2016-07-08 09:15:45', '2016-07-08 09:15:45', NULL, 4, 1, NULL, 1, NULL, 7, NULL),
+(44, 'testtest', NULL, 'sdfsdfsdf', 50, 'sdfsdfsdf', 1, NULL, NULL, 114, '2016-07-08 09:15:58', '2016-07-08 09:15:58', '2016-07-09 12:15:58', 3, 1, NULL, 1, NULL, 7, NULL),
+(45, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-08 11:46:43', '2016-07-08 11:46:43', NULL, 0, NULL, NULL, 0, NULL, 0, NULL),
+(46, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2016-07-08 11:46:58', '2016-07-08 11:46:58', NULL, 0, NULL, NULL, 0, NULL, 0, NULL),
+(47, 'testtest', NULL, 'werwerwer', 50, 'werwerewr', 0, NULL, NULL, 115, '2016-07-11 10:20:03', '2016-07-11 10:20:03', NULL, 3, 1, NULL, 0, NULL, 6, NULL);
 
 -- --------------------------------------------------------
 
@@ -384,10 +371,10 @@ INSERT INTO `promise` (`id`, `title`, `sub_title`, `description`, `price`, `term
 
 CREATE TABLE `request` (
   `id` int(11) NOT NULL,
-  `promise_id` int(11) NOT NULL,
+  `promise_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `users_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -396,8 +383,38 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`id`, `promise_id`, `amount`, `users_id`, `created_at`, `updated_at`) VALUES
-(38, 40, 1, 114, '2016-07-01 08:25:35', '2016-07-01 08:25:35'),
-(39, 41, 1, 114, '2016-07-01 11:21:19', '2016-07-01 12:51:17');
+(40, 42, 0, 120, '2016-07-08 07:19:15', '2016-07-08 07:20:49'),
+(41, 43, 1, 120, '2016-07-08 09:15:45', '2016-07-08 09:15:45'),
+(42, 44, 1, 120, '2016-07-08 09:15:59', '2016-07-08 09:15:59'),
+(43, 47, 1, 120, '2016-07-11 10:20:03', '2016-07-11 10:20:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `search`
+--
+
+CREATE TABLE `search` (
+  `id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  `price` float NOT NULL,
+  `descript` varchar(255) NOT NULL,
+  `expires` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `search`
+--
+
+INSERT INTO `search` (`id`, `users_id`, `price`, `descript`, `expires`) VALUES
+(1, 0, 0, '', '2016-07-12'),
+(2, 0, 50, '', '2016-07-18'),
+(3, 120, 50, 'rrrrrrr', '2016-07-24'),
+(4, 120, 50, 'rrrrrrr', '2016-07-24'),
+(5, 120, 50, 'rrrrrrr', '2016-07-24'),
+(6, 120, 50, 'rrrrrrr', '2016-07-24'),
+(7, 120, 50, 'rrrrrrr', '2016-07-24'),
+(8, 120, 50, 'rrrrrrr', '2016-07-24');
 
 -- --------------------------------------------------------
 
@@ -437,8 +454,8 @@ CREATE TABLE `users` (
   `password` varchar(60) DEFAULT NULL,
   `location_id` int(11) NOT NULL DEFAULT '0',
   `remember_token` varchar(100) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `active` tinyint(1) DEFAULT '0',
   `category_id` int(11) NOT NULL,
   `access` tinyint(4) DEFAULT '0',
@@ -450,8 +467,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `f_name`, `l_name`, `email`, `password`, `location_id`, `remember_token`, `updated_at`, `created_at`, `active`, `category_id`, `access`, `hash`) VALUES
-(114, 'test_name', 'test_Last_name', 'bog@ram.ru', '$2y$10$E7kjPNO6EzxTC02tiU8/qOTc2/A63nbDGNzso84lzuR9UAxOblyiW', 6, 'b99X6DWzZ2EHlQbS3PKG3ss2VzOOuoEApLzDXbJ6bk7I5D8XlUu0xWZwElaW', '2016-06-29 13:07:41', '2016-06-13 05:03:52', 1, 3, 2, '$2y$10$RsMKb.ZrvG/NI/42QbA.OORpjChsaJBu7oYZPgTTOXobIzRJbSNFy'),
-(118, 'test', 'test1', 'bggbb@ram.ru', '$2y$10$cFkubVhhj26jjBtfnionl.9IJMMbT6tykgb.vNfo.wSpseDCqJT86', 16, 'AzBJI1koarMJGzChPZjlwaEcE5dLedUaFMtWLDujcq9Y3zuxEXWbmWXLkNnJ', '2016-06-29 08:24:30', '2016-06-29 08:05:10', 1, 3, 1, '$2y$10$bPjz3KncRer3todxxWeEWeaRFanMGKPHB1DlTL2KjlTU5CO31kvte');
+(120, 'test_name', 'test_Last_name', 'bog@ram.ru', '$2y$10$OnXQj0YhH1YRr782VOA9TuEaor2K0FSkhCw4n69RAGx78REDa2ECC', 5, 'u1NRhDrGojILqk7Y2eZZLf1hVZ6PQaqAUgwqnJTagOoQK5r9gKRxdkAnATbV', '2016-07-11 12:14:27', '2016-07-08 07:13:47', 1, 3, 2, '$2y$10$kRvTza3I92Z6l29okLcbD.1PKuuyQbSqdj6VHbD41FMUTvBPWHFpO');
 
 -- --------------------------------------------------------
 
@@ -473,11 +489,7 @@ CREATE TABLE `winners` (
 --
 
 INSERT INTO `winners` (`id`, `promise_id`, `bid`, `winner_id`, `if_email`, `time`) VALUES
-(56, 40, 70, 114, 1, '2016-07-01 10:42:06'),
-(58, 40, 90, 118, 1, '2016-07-01 10:49:07'),
-(60, 41, 50, 114, 1, '2016-07-01 11:24:03'),
-(61, 41, 50, 114, 1, '2016-07-01 12:49:51'),
-(62, 41, 50, 114, 1, '2016-07-01 12:51:17');
+(63, 42, 50, 120, 1, '2016-07-08 07:20:49');
 
 --
 -- Indexes for dumped tables
@@ -520,6 +532,12 @@ ALTER TABLE `request`
   ADD KEY `fk_request_users1_idx` (`users_id`);
 
 --
+-- Indexes for table `search`
+--
+ALTER TABLE `search`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `setting`
 --
 ALTER TABLE `setting`
@@ -560,7 +578,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `file`
 --
 ALTER TABLE `file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 --
 -- AUTO_INCREMENT for table `location`
 --
@@ -570,12 +588,17 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `promise`
 --
 ALTER TABLE `promise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+--
+-- AUTO_INCREMENT for table `search`
+--
+ALTER TABLE `search`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `setting`
 --
@@ -590,12 +613,12 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 --
 -- AUTO_INCREMENT for table `winners`
 --
 ALTER TABLE `winners`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 --
 -- Constraints for dumped tables
 --
